@@ -1,0 +1,17 @@
+{
+  "name": "gobcars",
+  "version": "1.0.0",
+  "description": "gob cars project",
+  "license": "ISC",
+  "author": "gopinath",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd server && node index.js\" \"cd client && npm run dev\" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
+  }
+}

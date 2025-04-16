@@ -1,0 +1,29 @@
+{"reviews":[
+    {
+      "id": 1,
+      "name": "susan smith",
+      "job": "web developer",
+      "stars":5,
+      "text": "Good"
+    },
+    {
+      "id": 2,
+      "name": "anna johnson",
+      "job": "web designer",
+      "stars": 4,
+      "text": "Good ride"
+    },
+    {
+      "id": 3,
+      "name": "peter jones",
+      "job": "intern",
+      "stars": 3,
+      "text": "Improve comfort"},
+    {
+      "id": 4,
+      "name": "bill anderson",
+      "job": "the boss",
+      "stars": 2,
+      "text": "not good. "
+    }
+  ]}

@@ -9,6 +9,8 @@ router.post("/add",protect,routeController.addReview);
 
 router.delete("/delete/:id",protect,routeController.deleteReview);
 
+router.get("/:id",routeController.getReviews);
+
 
 
 module.exports = router;

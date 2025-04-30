@@ -7,14 +7,22 @@ const asyncHandler=require("express-async-handler");
 
 /* Get All user Data - GET method */
 const getAllUsers=async (req, res) => { 
-    try{
-        //get all users data
-    const user=await UserModel.find({});
-    console.log("Get all users Data successfully ");
-    res.status(200).json(user);
-    }
-    catch(err) {res.send(err);}
-    
+    try {
+       //get all user data
+       const users = await UserModel.find({});
+       if (!users) {
+         return res.status(400).json({
+           message: "No users found!",
+         });
+       }
+       console.log("Get all users Data successfully ");
+       res.status(200).json({
+         message: "Users fetched ok!",
+         Users: { users },
+       });
+     } catch (err) {
+       res.send(err);
+     }
 };
 
 /* Get user data with id - GET method */
@@ -32,45 +40,51 @@ const getUser=async (req, res) => {
 const loginUser=asyncHandler(async(req, res) => {
     try{
         const {email,password} = req.body;
-    const user=await UserModel.findOne({email});
-    //user exists
-    if(user && (await bcrypt.compare(password,user.password))){
+        const user = await UserModel.findOne({email});
+
+        if(!user) {
+            return res.status(400).json({
+                message: "No email found!"
+            })
+        };
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if(!isPasswordValid) {
+            return res.status(400).json({
+                message: "Password doesn't match!"
+            })
+        };
+    
         const token=await generateToken(user._id);
-        res.cookie("jwt",token,{httpOnly:true,maxAge});
-        // res.status(200).json({
-        //     _id:user._id,
-        //     name:user.name,
-        //     contact:user.contact,
-        //     email:user.email,
-        //     role:user.role,
-        //     userstatus:user.userstatus,
-        //     token:token
-        // });
-        //role-based redirection
-        if(user.role=="admin"){
-            res.redirect("/admin")
-        }else if(user.role=="dealer"){
-            res.redirect("/dealer")
-        }else{
-            res.redirect("/user")
-        }
-        console.log("User login successfully");
+        res.cookie("token",token,{httpOnly:true,maxAge:24*60*60*1000});
+        user.lastLogin = Date.now();
+
+        await user.save();
+        res.status(200).json({
+            message: "Login ok!",
+            user:{... user._doc}
+        });
+       
     }         
-    else{
-        res.status(400);
-        throw new Error("Invalid email and password");
-     
-    }
-    }
-    catch (err) {res.send(err)}   
+   
+    catch (error) {
+        console.log("Login error: ", error);
+        res.status(400).json({
+            message: error.message
+        });
+    } 
 });
     
 
 //register new user
 const addUser=asyncHandler(async(req, res) => {
-    const {username,contact,email,password,role,userstatus}=req.body;
+    const {username,contact,email,password,roles,userstatus}=req.body;
+    if(roles.includes("dealer")){
+        roles.push("user");
+    }
     //check user data validation
-    if(!username || !contact||!email||!password||!role||!userstatus){
+    if(!username || !contact||!email||!password||!roles||!userstatus){
         res.status(400);
         throw new Error("Please enter all the details");
     }
@@ -90,7 +104,7 @@ const addUser=asyncHandler(async(req, res) => {
         contact:contact,
         email:email,
         password:hashedPwd,
-        role:role,
+        roles:roles,
         userstatus:userstatus
     });
     if(user){
@@ -99,8 +113,9 @@ const addUser=asyncHandler(async(req, res) => {
             name:user.name,
             contact:user.contact,
             email:user.email,
-            role:user.role,
+            roles:user.roles,
             userstatus:user.userstatus
+            
         });
         console.log("User created");
     }
@@ -152,4 +167,37 @@ const getProfile=(req,res)=>{
         res.json(null);
     }
 }
-module.exports = {getAllUsers,getUser,addUser,updateUser,deleteUser,loginUser,getProfile};
+const addLicense=async (req,res)=>{
+    try{
+        const {licenseNumber,expiryDate,userid}=req.body;
+    //check user data validation
+    if(!licenseNumber || !expiryDate){
+        res.status(400);
+        throw new Error("Please enter license and expiry details");
+    }
+    const user = await UserModel.findById(userid);
+    user.licensenumber=licenseNumber;
+    user.expirydate=expiryDate;
+    user.save();
+    res.status(200).json({
+        message: "Login ok!",
+        user:{... user._doc}
+    });
+}catch(e){
+    
+        res.status(400);
+        throw new Error("Invalid Data");
+
+
+}
+
+}  
+const logOut=asyncHandler(async(req,res)=>{
+        res.clearCookie("token");
+        res.status(200).json({
+            message: "Logout ok!"
+        });
+   
+    
+});
+module.exports = {getAllUsers,getUser,addUser,updateUser,deleteUser,loginUser,getProfile,addLicense,logOut};

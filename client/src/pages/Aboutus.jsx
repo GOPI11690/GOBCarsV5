@@ -4,9 +4,10 @@ import aboutbanner from "../assets/images/aboutusbanner.png";
 import Statistics from "../components/Statistics";
 import Faqs from "./Faqs";
 
-function Aboutus() {
+const Aboutus=()=> {
+ 
   return (
-    <div id="aboutUs" className="pt-15 pb-24 bg-slate-100 min-h-screen dark:bg-gray-900 ">
+    <div id="aboutUs" className="pt-15 pb-24 md:px-40 bg-slate-100 min-h-screen dark:bg-gray-900 ">
       <div className="flex flex-wrap pt-15 lg:justify-center">
         <h2 className="text-3xl font-bold sm:text-4xl txt-color dark:text-sky-500 pt-24">
           About Us
@@ -110,7 +111,7 @@ function Aboutus() {
         </div>
       </section>
       <Statistics/>
-      <Faqs/>
+      <Faqs data="aboutus"/>
     </div>
   );
 }

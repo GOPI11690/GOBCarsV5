@@ -2,7 +2,7 @@ import React from "react";
 
 function Privacypolicy() {
   return (
-    <div className="p-20 bg-white min-h-screen dark:bg-gray-900 dark:text-gray-100">
+    <div className="md:px-40 md:py-40 p-20 bg-white min-h-screen dark:bg-gray-900 dark:text-gray-100">
       <div className="border-solid shadow-xl">
         <h1 className="border-l-8 text-xl border-solid txt-color font-extrabold dark:text-sky-500 border-sky-950 p-3">
           PRIVACY POLICY

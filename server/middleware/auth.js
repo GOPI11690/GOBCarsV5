@@ -4,22 +4,33 @@ const asyncHandler=require("express-async-handler");
 const UserModel=require("../model/userModel.js");
 
 const protect=asyncHandler(async(req,res,next)=>{
-    let token;
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    let token=req.cookies.token;
+    if (!token) {
+        return res.status(401).json({
+            message: "Not authorized, no token found!"
+        })
+    };
         try{
-            //token verification
-            token=req.headers.authorization.split(" ")[1];
-            const decoded=jwt.verify(token,process.env.SECRET_KEY);
-            req.user=await UserModel.findById(decoded.id).select('-password'); 
+            let decodeToken = jwt.verify(token, process.env.SECRET_KEY);
+            console.log(decodeToken)
+
+        if(!decodeToken) {
+            return res.status(402).json({
+                message: "Not authorized, invalid token!"
+            })
+        };
+            req.user=await UserModel.findById(decodeToken.id).select('-password'); 
             next();
             
-        }
-        catch(e){
-            res.status(401);
-        throw new Error("not authorized");
+        } catch (error) {
+            console.error(error);
+    
+            return res.status(500).json({
+                message: "server error!"
+            });
         }
     }
-});
+);
 
 
 module.exports=protect;

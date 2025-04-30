@@ -2,12 +2,12 @@ import React from 'react'
 
 function Howitworks() {
   return (
-    <div id='howitworks' className='px-20 py-15 bg-slate-100 dark:bg-gray-900 dark:text-gray-100'>
+    <div id='howitworks' className='md:px-40 px-10 py-16 bg-white dark:bg-gray-900 dark:text-gray-100'>
     <div className='flex flex-wrap pt-15 lg:justify-center'>
             <h2 className='text-1xl font-bold sm:text-3xl text-sky-95 pt-24 txt-color dark:text-sky-500'>How It Works</h2></div>
-            <section className="relative z-0 py-10">
+            <section className="relative z-0 py-10 justify-items-center">
             
-        <div className="grid container mx-auto pt-1 p-8 grid-cols-1 gap-y-16 lg:grid-cols-1 lg:items-center lg:gap-x-12">
+        <div className="grid container pt-10 grid-cols-1 gap-y-16 lg:grid-cols-1 lg:items-center lg:gap-x-12">
    
     
             <div className="grid grid-cols-1 gap-12 sm:gap-10  sm:grid-cols-2">
@@ -20,7 +20,7 @@ function Howitworks() {
                         </div>
                          
                          <div className="flex flex-col rounded-lg hover:bg-gray-200 hover:border-gray-200 px-4 text-center">
-                  <dt className="absolute top-12 inset-y-0 order-last bg-slate-100 text-sm text-left font-medium text-gray-500 dark:bg-gray-900 dark:text-sky-500">
+                  <dt className="absolute top-12 inset-y-0 order-last bg-white text-xl text-left font-medium text-gray-500 dark:bg-gray-900 dark:text-sky-500">
                   Book a Car anywhere, anytime in India
                   </dt>
                   <dd className="text-6xl text-left font-extrabold mb-4 text-gray-500 md:text-6xl">
@@ -39,7 +39,7 @@ function Howitworks() {
                         </div>
                          
                          <div className="flex flex-col rounded-lg hover:bg-gray-200 hover:border-gray-200 px-4 text-center">
-                  <dt className="absolute top-12 inset-y-0 order-last bg-slate-100 dark:bg-gray-900 dark:text-sky-500 text-sm text-left font-medium text-gray-500">
+                  <dt className="absolute top-12 inset-y-0 order-last bg-white dark:bg-gray-900 dark:text-sky-500 text-xl text-left font-medium text-gray-500">
                   We will contact you for basic KYC, Refundable Security Deposit etc.
                   </dt>
                   <dd className="text-6xl text-left font-extrabold mb-4 text-gray-500 md:text-6xl">
@@ -58,7 +58,7 @@ function Howitworks() {
                         </div>
                          
                          <div className="flex flex-col rounded-lg hover:bg-gray-200 hover:border-gray-200 px-4 text-center">
-                  <dt className="absolute top-12 inset-y-0 order-last bg-slate-100 dark:bg-gray-900 dark:text-sky-500 text-sm text-left font-medium text-gray-500">
+                  <dt className="absolute top-12 inset-y-0 order-last bg-white dark:bg-gray-900 dark:text-sky-500 text-xl text-left font-medium text-gray-500">
                   After detailed quality checks and deep cleaning, your car is ready for delivery.
                   </dt>
                   <dd className="text-6xl text-left font-extrabold mb-4 text-gray-500 md:text-6xl">
@@ -77,7 +77,7 @@ function Howitworks() {
                       </div>
                        
                        <div className="flex flex-col rounded-lg hover:bg-gray-200 hover:border-gray-200 px-4 text-center">
-                <dt className="absolute top-12 inset-y-0 order-last bg-slate-100 dark:bg-gray-900 dark:text-sky-500 text-sm text-left font-medium text-gray-500">
+                <dt className="absolute top-12 inset-y-0 order-last bg-white dark:bg-gray-900 dark:text-sky-500 text-xl text-left font-medium text-gray-500">
                 Get your car delivered at your doorstep.
                 </dt>
                 <dd className="text-6xl text-left font-extrabold mb-4 text-gray-500 md:text-6xl">
@@ -96,7 +96,7 @@ function Howitworks() {
                       </div>
                        
                        <div className="flex flex-col rounded-lg hover:bg-gray-200 hover:border-gray-200 px-4 text-center">
-                <dt className="absolute top-12 inset-y-0 order-last bg-slate-100 dark:bg-gray-900 dark:text-sky-500 text-sm text-left font-medium text-gray-500">
+                <dt className="absolute top-12 inset-y-0 order-last bg-white dark:bg-gray-900 dark:text-sky-500 text-xl text-left font-medium text-gray-500">
                 Enjoy your car! We'll take care of routine service & insurance claims with doorstep service
                 </dt>
                 <dd className="text-6xl text-left font-extrabold mb-4 text-gray-500 md:text-6xl">
@@ -115,7 +115,7 @@ function Howitworks() {
                       </div>
                        
                        <div className="flex flex-col rounded-lg hover:bg-gray-200 hover:border-gray-200 px-4 text-center">
-                <dt className="absolute top-12 inset-y-0 order-last bg-slate-100 dark:bg-gray-900 dark:text-sky-500 text-sm text-left font-medium text-gray-500">
+                <dt className="absolute top-12 inset-y-0 order-last bg-white dark:bg-gray-900 dark:text-sky-500 text-xl text-left font-medium text-gray-500">
                 Continue using the car or return it anytime.
                 </dt>
                 <dd className="text-6xl text-left font-extrabold mb-4 text-gray-500 md:text-6xl">

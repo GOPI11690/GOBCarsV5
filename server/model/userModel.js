@@ -9,10 +9,12 @@ const userSchema = new mongoose.Schema(
     roles: {
       // an account can have multiple roles
       type: [String],
-      enum: ['admin', 'manager', 'user'],
+      enum: ['admin', 'dealer', 'user'],
       default: ['user']
   },
     userstatus: { type: String, required: true },
+    licensenumber: { type: String },
+    expirydate: { type: String },
     
   lastLogin: {
       type: Date,
@@ -22,6 +24,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false
   },
+  
   },
   { timestamps:true }
 );

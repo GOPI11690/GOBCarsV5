@@ -1,128 +1,119 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   loginFailed,
   loginStart,
   loginSuccessful,
 } from "../redux/slices/userSlice";
-
-import { Link, useNavigate, Navigate } from "react-router-dom";
-const LOGIN_URL = "/auth";
-function SignIn({ className }) {
+import { userLogin } from "../utils/ApiCalls";
+import {useNavigate } from "react-router-dom";
+ 
+function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [messageSuccess, setMessageSuccess] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
-
-  const isUserAuthenticated = useSelector(
-    (state) => state.user.isUserAuthenticated
-  );
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+ 
 
-  if (isUserAuthenticated) {
-    return <Navigate to="/user" />;
-  }
+  const dispatch = useDispatch();
 
   const resetForm = () => {
     setEmail("");
     setPassword("");
   };
-  const userLogin = async (email, password) => {
-   
-      const response = await axios.post(`http://localhost:3030/api/user/login`,
-        {
-          email,
-          password
-        },
-        {
-          withCredentials: true
-        }
-      )
   
-      return response
-    
-  }
   const handleSubmit = async (e) => {
     // prevent the form from refreshing the whole page
     e.preventDefault();
-    // set configurations
-    dispatch(loginStart());
-    // const configuration = {
-    //   method: "post",
-    //   url: "http://localhost:3030/api/user/login",
-    //   data: {
-    //     email,
-    //     password,
-    //   },
-    // };
-    // make the API call
-    // await axios(configuration)
-    try{
-      const response =await userLogin(email,password)
-        if(response.data.user){
-        const {_id,
-        name,
-        email,
-        roles,
-        contact,
-        userstatus,
-        isVerified,
-        lastLogin,
-      } = response.data.user;
-      dispatch(
-        loginSuccessful({
-          _id,
-          name,
-          email,
-          roles,
-          contact,
-          userstatus,
-          isVerified,
-          lastLogin,
-        })
-      )}
-    
-      setMessageSuccess(response.data.message)
-      setTimeout(() => setMessageSuccess(""), 3000)
-      resetForm()
 
-      navigate("/home")
-    } catch (error) {
-      // throw new Error(error);
-      dispatch(loginFailed(error.response.data.message))
-
-      setMessageFailed(error.response.data.message)
-      setTimeout(() => setMessageFailed(""), 3000)
+    if (!email.includes('@')) {
+      setMessageFailed("Invalid email format");
     }
+    else if (!password) {
+      setMessageFailed("Please enter the Password");
+    }
+    else{
+// set configurations
+dispatch(loginStart());
+try{
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  const response =await userLogin(email,password)
+
+    if(response.data.user){
+    const {_id,
+    name,
+    email,
+    roles,
+    contact,
+    userstatus,
+    isVerified,
+    lastLogin,createdAt
+  } = response.data.user;
+
+  setMessageSuccess(response.data.message)
+  dispatch(
+    loginSuccessful({
+      _id,
+      name,
+      email,
+      roles,
+      contact,
+      userstatus,
+      isVerified,
+      lastLogin,
+      createdAt
+    })
+  )
+
+  
+  setTimeout(() =>{
+    setMessageSuccess("");
+    resetForm()
+    if(roles.includes("admin")){
+      navigate("/adminpage")
+    }else if(roles.includes("dealer")){
+      navigate("/userpage")
+    }else{
+      navigate("/home");
+    }}, 500);
+ 
+}
+} catch (error) {
+  // throw new Error(error);
+  dispatch(loginFailed(error.response.data.message))
+
+  setMessageFailed(error.response.data.message)
+  setTimeout(() => setMessageFailed(""), 2000)
+}
+    }
+
+    
       
   }
   return (
-    <div className={className}>
-      <div className="bg-slate-100 min-h-screen dark:bg-gray-900 items-center">
-        <div className="flex flex-col h-screen justify-center items-center">
+    
+      <div className=" pt-10 items-center">
+        <div className="bg-transparent flex flex-col justify-center items-center">
           <form
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-5 text-white"
             onSubmit={(e) => handleSubmit(e)}
-          >
-            <label htmlFor="email" className="dark:text-white">
-              Email
-            </label>
-            <input
+          ><h1>Please login to your account</h1>
+            <div className="flex flex-col text-white ">
+            <label>Email</label>
+              <input
               id="email"
-              placeholder="example@mail.com"
+              placeholder="e.g. abc@mail.com"
               type="email"
               name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="border-2 py-3 px-2 rounded-md focus:border-indigo-600 focus:outline-hidden caret-gray-500 p-1"
+              value={email}              onChange={(e) => setEmail(e.target.value)}
+              className=" py-3 px-2 placeholder-gray-500  rounded-md focus:border-blue-600 text-black p-1"
               required
-            ></input>
-            <label htmlFor="password" className="dark:text-white">
-              Password
-            </label>
-            <input
+            ></input></div>
+            
+            <div className="flex flex-col text-white">
+              <label>Password</label>
+              <input
               id="password"
               placeholder="password"
               type="password"
@@ -131,26 +122,28 @@ function SignIn({ className }) {
               required
               onChange={(e) => setPassword(e.target.value)}
               className="
-                    border-2 py-3 px-2 rounded-md focus:border-indigo-600 focus:outline-hidden caret-gray-500 p-1"
-            ></input>
+                    border-2 py-3 px-2 rounded-md placeholder-gray-500 p-1 text-black"
+            ></input></div>
+           
 
             <button
-              className="w-full bg-sky-500 py-2 rounded-md text-lg text-white mb-10"
+              className="w-full bg-green-500 py-2 text-xl rounded-md hover:bg-green-700 text-white mb-10"
               onSubmit={(e) => handleSubmit(e)}
             >
               Sign In
             </button>
-          </form>
-          {/* display success message */}
-          {messageSuccess && (
+             <p className="text-center">{messageSuccess && (
             <span className="text-green-500">{messageSuccess}</span>
           )}
           {messageFailed && (
             <span className="text-red-500">{messageFailed}</span>
-          )}
+          )}</p>
+          
+          </form>
+         
         </div>
       </div>
-    </div>
+    
   );
 }
 

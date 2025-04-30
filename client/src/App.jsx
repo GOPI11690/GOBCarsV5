@@ -11,29 +11,33 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
   useLocation,
 } from "react-router-dom";
-import UnauthorizedPage from "./pages/UnauthorizedPage";
 import AdminPage from "./pages/AdminPage";
 import UserPage from "./pages/UserPage";
 
-
-import LinkPage from "./components/LinkPage";
 import Layout from "./components/Layout";
-import SigninSignup from "./pages/SigninSignup";
 import Homepage from "./pages/Homepage";
 import Aboutus from "./pages/Aboutus";
 import Termofuse from "./pages/Termofuse";
-import Privacypolicy from "./pages/Privacypolicy"
+import Privacypolicy from "./pages/Privacypolicy";
 import Reviewpage from "./pages/Reviewpage";
 import BrowseCars from "./pages/BrowseCars";
 import Howitworks from "./pages/Howitworks";
-const ROLES = {
-  'User': 'User',
-  'Admin': 'Admin',
-  'Dealer': 'Dealer'
-}
+import CheckInCheckOut from "./pages/CheckInCheckOut";
+import UserDashboard from "./views/UserDashboard";
+import UserReviews from "./views/UserReviews";
+import UserBookings from "./views/UserBookings";
+import DealerCars from "./views/DealerCars";
+import HostPage from "./pages/hostpages/HostPage";
+import AdminDashboard from "./components/adminModel/views/AdminDashboard";
+import AdminReviews from "./components/adminModel/views/AdminReviews";
+import AdminCars from "./components/adminModel/views/AdminCars";
+import BookingPage from "./pages/BookingPage";
+import CarTechnicalsPage from "./pages/CarTechnicalsPage";
+import RentalSummary from "./pages/RentalSummary";
+import AdminBookings from "./components/adminModel/views/AdminBookings";
+
 const Wrapper = ({ children }) => {
   const location = useLocation();
 
@@ -46,70 +50,54 @@ const Wrapper = ({ children }) => {
 };
 
 function App() {
-
   return (
     <ThemeProvider>
       <main className="min-h-screen bg-white dark:bg-gray-900">
         <Navigation />
         {/* <Router> */}
-          <Wrapper>
-            <Routes>
-          {/* <Route path="/" exact element={<Layout />} /> */}
-                {/* public routes */}
-        <Route path="login" element={<SigninSignup />} />
-        <Route path="linkpage" element={<LinkPage />} />
-        <Route path="unauthorized" element={<UnauthorizedPage />} />
-        <Route path="cars" element={<BrowseCars />} />
-        <Route path="howitworks" element={<Howitworks />} />
-        <Route path="retrospects" element={<Reviewpage />} />
-        
-        <Route path="termofuse" element={<Termofuse />} />
-        <Route path="privacypolicy" element={<Privacypolicy />} />
-        <Route path='/' element={<Homepage />}/>
-        <Route path="aboutus" element={<Aboutus />}/>
-        {/* we want to protect these routes */}
-        {/* <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-          <Route path="user" element={<UserPage />} />
-        </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-          <Route path="admin" element={<AdminPage />} />
-        </Route> */}
- {/* catch all */}
- <Route path="*" element={<Navigate to="/" />} />
+        <Wrapper>
+          <Routes>
+            {/* <Route path="/" exact element={<Layout />} /> */}
+            {/* public routes */}
+            <Route path="/" element={<Layout />}>
+              <Route path="login" element={<CheckInCheckOut />} />
+              <Route path="cars" element={<BrowseCars />} />
+              <Route path="home/cars" element={<BrowseCars />} />
+              <Route path="howitworks" element={<Howitworks />} />
+              <Route path="retrospects" element={<Reviewpage />} />
 
-      </Routes>
+              <Route path="termofuse" element={<Termofuse />} />
+              <Route path="privacypolicy" element={<Privacypolicy />} />
+              <Route path="/" element={<Homepage />} />
+              <Route path="home" element={<Homepage />} />
+              <Route path="aboutus" element={<Aboutus />} />
+              <Route path="hostpage" element={<HostPage />} />
+              <Route path="hostpage/login" element={<CheckInCheckOut />} />
+              <Route path="cartechnicals" element={<CarTechnicalsPage />} />
+              <Route path="bookingpage" element={<BookingPage />} />
+              <Route path="rentalsummary" element={<RentalSummary />} />
 
+              <Route path="userpage" element={<UserPage />}>
+                <Route path="userdashboard" element={<UserDashboard />} />
+                <Route path="userbookings" element={<UserBookings />} />
+                <Route path="dealercars" element={<DealerCars />} />
+                <Route path="userreviews" Component={UserReviews} />
+              </Route>
+              <Route path="adminpage" element={<AdminPage />}>
+                <Route path="admindashboard" element={<AdminDashboard />} />
+                <Route path="adminbookings" element={<AdminBookings />} />
+                <Route path="adminreviews" element={<AdminReviews />} />
+                <Route path="admincars" element={<AdminCars />} />
+              </Route>
 
-            {/* <Routes>
-              <Route path="/" element={<Homepage/>} />
-              <Route path="/login" element={<SigninSignup />} />
-              <Route path="/unauthorized" element={<UnauthorizedPage />} />
-               protect routes 
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoutes roles={"admin"}>
-                    <AdminPage />
-                  </ProtectedRoutes>
-                }
-              ></Route>
-
-              <Route
-                path="/user"
-                element={
-                  <ProtectedRoutes roles={"user"}>
-                    <UserPage />
-                  </ProtectedRoutes>
-                }
-              ></Route>
-
-              <Route path="*" element={<div>Page Not Found</div>} />
-            </Routes> */}
-          </Wrapper>
-        {/* </Router> */}
+              {/* catch all */}
+              {/* <Route path="*" element={<Navigate to="/" />} /> */}
+              {/* <Route path='userpage/*' element={<Navigate to="/userpage" />}/>
+ <Route path='adminpage/*' element={<Navigate to="/adminpage" />}/> */}
+            </Route>
+          </Routes>
+        </Wrapper>
         <Footer />
-
-       
       </main>
     </ThemeProvider>
   );

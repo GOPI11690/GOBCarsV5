@@ -1,4 +1,7 @@
-{"faqs":[
+{
+  "faqs":
+  {
+    "faqs":[
     {
         "key": 1,
         "title": "What is GOB Cars?",
@@ -28,25 +31,40 @@
         "title": "Why do I have to pay a deposit?",
         "data": "The deposit amount of Rs.2,000 is used as a safeguard against any fuel difference, toll charges and traffic challans if found during the booking hour. The balance deposit amount (if any) will be refunded within the next 24-48 hrs. of booking end time.",
         "isOpen": false
-      },
-      {
-        "key": 6,
-        "title": "What if I see there are exterior damages on the vehicle?",
-        "data": "In case of any accident or damage to the car please inform our support team at the earliest. The support team will guide you with the next steps. In case the car is in good running condition, drive it back to the host location. Fill in the trip end checklist mentioning the damage. Our support team will guide you with the next steps and damage charges to be paid. In case the car has broken down, our team will coordinate and arrange for the breakdown team to get the car towed back. Our backend team will coordinate with you if there are any damage charges to be paid. Under no circumstances are you supposed to get the car fixed at any local garage. Gob Cars has an authorised service centre tie up across India. Our backend team will guide you through the process.",
-        "isOpen": false
-      },
-      {
-        "key": 7,
-        "title": "What if I get charged for traffic violation?",
-        "data": "GOB Cars or the host is not responsible for any traffic violation ticket that you are charged with. Users have to pay it out of their pocket. In case there are speeding tickets our backend team will verify and deduct it from the deposit money and refund the remaining amount.",
-        "isOpen": false
-      },
-      {
-        "key": 8,
-        "title": "Is there an hour and KM limits per booking?",
-        "data": "There is 400 kms/24hrs cap. For addition hours/Kms the following charges are applicable: Extra Hrs. Rs.150/hr. (If informed early a revised tariff will be shared) Extra Kms. Rs.5/Km. (If informed early a revised tariff will be shared)",
-        "isOpen": false
-      }
+      }],
+"hostfaqs":[
+  {
+      "key": 1,
+      "title": "What is GOB Cars?",
+      "data": "GOB Cars gives you a choise of using our amazing cars with your choise of privacy and freedom, so that you can start enjoying your road journey as you wish without waiting to reach your destination.",
+      "isOpen": false
+    },
+    {
+      "key": 2,
+      "title": "Which cars can I list? What are the variants?",
+      "data": "You can list any car model ranging from hatchbacks to SUVs to luxury cars as well. However, your car should not be older than 8 years. Note that the newer the car model, the higher earnings you can expect.",
+      "isOpen": false
+    },
+    {
+      "key": 3,
+      "title": "Can I stop listing my car anytime?",
+      "data": "Yes, you can pause or stop listings anytime through the GOB Cars Website, but it's recommended to avoid affecting upcoming or ongoing bookings.",
+      "isOpen": false
+    },
+    {
+      "key": 4,
+      "title": "What can I do if my car is damaged by a Guest?",
+      "data": "Please report the damage to us within 24 hours of the booking end time through the post-booking checklist on the app. Make sure the car is not used for personal use after booking completion.",
+      "isOpen": false
+    },
+    {
+      "key": 5,
+      "title": "Does GOB Cars cover all maintenance and damage charges?",
+      "data": "All damages that occur during a booking and are raised through the checklist will be covered by GOB Cars. However, regular servicing & maintenance of the car is the responsibility of the Host.",
+      "isOpen": false
+    }
 ]
 }
+}
+
   

@@ -1,63 +1,102 @@
-const mongoose=require("mongoose");
-const ReviewModel=require("../model/reviewModel.js");
-const asyncHandler=require("express-async-handler");
+const mongoose = require("mongoose");
+const ReviewModel = require("../model/reviewModel.js");
+const asyncHandler = require("express-async-handler");
 
 /* Get All review Data - GET method */
-const getAllReviews=asyncHandler(async (req, res) => { 
-    try{
-        //get all review data
-    const reviews=await ReviewModel.find({});
-    if(!reviews){
-        res.status(400);
-        throw new Error("Reviews not found");
+const getAllReviews = asyncHandler(async (req, res) => {
+  try {
+    //get all review data
+    const reviews = await ReviewModel.find({});
+    if (!reviews) {
+      return res.status(400).json({
+        message: "No reviews found!",
+      });
     }
     console.log("Get all Reviews Data successfully ");
-    res.status(200).json(reviews);
-    }
-    catch(err) {res.send(err);}
-    
+    res.status(200).json({
+      message: "Reviews fetched ok!",
+      reviews: { reviews },
+    });
+  } catch (err) {
+    res.send(err);
+  }
 });
+const getReviews = asyncHandler(async (req, res) => {
+  try {
+    // const UserId = ObjectId(req.params.id);
+    const UserId=req.params.id;
+          if (!UserId) {
+      return res.status(400).json({
+        message: "No userid found!",
+      });
+    }
+   
+    const reviews=await ReviewModel.find({userid: UserId});
+  
+    if (!reviews) {
+      res.status(200).json({
+        message: "You don't have any reviews!",
+      });
+      throw new Error("Reviews not found");
+    }
 
+    res.status(200).json({
+      message: "Reviews fetched ok!",
+      reviews: { reviews },
+    });
+  } catch (err) {
+    res.send(err);
+  }
+});
 //creating review data
-const addReview=asyncHandler(async(req, res) => {
-    try{
-        //review validation
-    const {review,rating}=req.body;
-    if(!review){
+const addReview = asyncHandler(async (req, res) => {
+  try {
+    //review validation
+    const { review, rating, userid,reviewername } = req.body;
+    if(!review||!rating){
         res.status(400);
         throw new Error("Please enter all the details");
     }
     //adding review data
-    const addReview=await ReviewModel.create({
-        review,rating,userid:req.user.id,
+    const addReview = await ReviewModel.create({
+      review,
+      rating,
+      userid,
+      reviewername
     });
-    res.status(200).send(addReview);
-    console.log("Review data added successfully ");
-    }
-    catch(err){
-        res.send(err);
-    } 
+    if(addReview){
+      res.status(200).json({
+          message: "Review ok!",
+          review:{... review._doc}
+      });
+  }
+  else{
+      res.status(400);
+      throw new Error("Invalid Data");
+  }
+console.log("Review added") 
+  } catch (err) {
+    res.send(err);
+  }
 });
 //delete review data
-const deleteReview=asyncHandler(async(req,res) => {
-    try{
-        //review data validation
-        const review=await ReviewModel.findById(req.params.id);
-        if(!review){
-            res.status(400);
-            throw new Error("review not found");
-        }
-        //user validation
-        if(review.userid.toString()!==req.user.id){
-            res.status(401);
-            throw new Error("User not authorized");
-        }
-        //deleting review data by id
-        const deleteReview=await ReviewModel.deleteOne({_id:req.params.id});
-        res.status(200).send("Review deleted sucessfully");
+const deleteReview = async (req, res) => {
+  try{
+    const id=req.params.id;
+    //review data validation
+    const review = await ReviewModel.findById(id);
+    if (!review) {
+      res.status(400);
+      throw new Error("review not found");
     }
-    catch(err){res.send(err);}
-});
+  
+    //deleting review data by id
+    console.log(req.params.id);
+    const deleteReview = await ReviewModel.findByIdAndDelete(id);
+    res.status(200).send("Review deleted sucessfully");
+  } catch (err) {
+    res.send(err);
+  }
+};
 
-
-module.exports={getAllReviews,addReview,deleteReview};
+module.exports = { getAllReviews, getReviews, addReview, deleteReview };

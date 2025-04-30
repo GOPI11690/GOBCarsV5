@@ -11,20 +11,20 @@ const userSlice = createSlice({
   },
   reducers: {
     loginStart(state) {
-      ;(state.loading = true), (state.error = null)
+      (state.loading = true), (state.error = null)
     },
     loginSuccessful(state, action) {
-      ;(state.user = action.payload),
+      (state.user = action.payload),
         (state.isCheckingUserAuthenticated = false),
         (state.isUserAuthenticated = true),
         (state.loading = false)
     },
     loginFailed(state, action) {
-      ;(state.loading = false), (state.isCheckingUserAuthenticated = false)
+      (state.loading = false), (state.isCheckingUserAuthenticated = false)
       state.error = action.payload
     },
     logout(state) {
-      ;(state.user = null),
+      (state.user = null),
         (state.isCheckingUserAuthenticated = false),
         (state.isUserAuthenticated = false),
         (state.loading = false),
@@ -39,4 +39,9 @@ export const {
   loginFailed,
   logout
 } = userSlice.actions
-export default userSlice.reducer
+
+
+
+
+export default userSlice.reducer;
+

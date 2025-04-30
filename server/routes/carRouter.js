@@ -13,6 +13,8 @@ router.delete("/delete/:id",protect,routeController.deleteCar);
 
 router.put("/update/:id",protect,routeController.updateCar);
 
+router.get("/dealer/:id",routeController.getDealerCars);
+
 
 
 module.exports = router;

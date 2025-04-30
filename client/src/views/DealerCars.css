@@ -1,0 +1,60 @@
+
+
+.userTable {
+    color: White;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.userTable th,
+.userTable td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    background-color:#0EA5E9;;
+}
+.userTable th {
+    background-color:  #043774;
+    color:white;
+}
+.userTable th.editInfoCell {
+    color: black;
+    background-color: rgb(248, 182, 0);
+}
+.userTable th.deleteCell {
+    background-color: rgb(168, 0, 0);
+}
+
+
+.cellRoles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.editInfoButton {
+    background-color: rgb(248, 182, 0);
+    transition: background-color 0.2s ease-in-out;
+    
+
+}
+.editInfoButton:hover {
+    background-color: rgb(248, 203, 0);
+}
+
+.deleteButton {
+    color: white;
+    background-color: rgb(168, 0, 0);
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 10px;
+    padding: 5px;
+}
+.deleteButton:hover {
+    background-color: rgb(197, 0, 0);
+}
+h1{
+    font-weight: 800;
+    font-size: x-large;
+    padding: 10px;
+
+}

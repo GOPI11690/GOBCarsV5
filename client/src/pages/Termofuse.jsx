@@ -2,7 +2,7 @@ import React from 'react'
 
 function Termofuse() {
   return (
-    <div className='parent p-20 bg-white min-h-screen dark:bg-gray-900'>
+    <div className='parent md:px-40 md:p-40 p-20 bg-white min-h-screen dark:bg-gray-900'>
         <div className='border-solid shadow-xl'>
         <h1 className='border-l-8 border-solid border-sky-950 txt-color text-xl p-3 font-extrabold dark:text-sky-500'>TERMS OF USE</h1>
         <div className='child text-justify text-lg px-10 pt-10'>

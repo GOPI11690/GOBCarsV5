@@ -2,9 +2,9 @@ import React,{useState,useEffect} from "react";
 
 function Accordion(props) { 
     return ( 
-        <div className="border rounded-md mb-1"> 
+        <div className="border rounded-md mb-1 w-full"> 
             <button 
-                className="w-full p-4 text-left bg-gray-200 dark:bg-gray-800 dark:text-white 
+                className="w-full p-4 text-left  bg-gray-200 dark:bg-gray-800 dark:text-white 
                            hover:bg-gray-500 dark:hover:bg-sky-500 transition duration-500"
                 onClick={props.toggleAccordion} 
             > 
@@ -16,7 +16,7 @@ function Accordion(props) {
                 </span> 
             </button> 
             {props.isOpen && ( 
-                <div className="p-4 bg-white dark:text-white dark:bg-sky-700 animate-pulse"> 
+                <div className="p-5 bg-white w-full dark:text-white dark:bg-sky-700 animate-pulse"> 
                     {props.data} 
                 </div> 
             )} 
@@ -24,18 +24,24 @@ function Accordion(props) {
     ); 
 }; 
 
-function Faqs() {
+function Faqs(data) {
     const [accordions, setAccordion] = useState([]); 
-    useEffect(() => {
-        const url="../src/data/faqdata.json";
-        fetch(url)
-        .then((res) => {res.json()
-            .then((data) => {setAccordion(data.faqs);})
-            
-            
-        });
-      }, []);
-    
+const getFaqs=async()=>{
+       const url="../src/data/faqdata.json";
+       try{
+         await fetch(url)
+         .then((res) => {res.json()
+             .then((resData) => {if(data=="aboutus"){setAccordion(resData.faqs.faqs)}else{setAccordion(resData.faqs.hostfaqs)}})
+             
+             
+         });
+       }
+       catch(e){throw new Error(e)}
+               
+     }
+         useEffect(() => {
+               getFaqs();
+             }, []);
 
 const toggleAccordion = (accordionkey) => { 
     const updatedAccordions = accordions.map((accord) => { 
@@ -50,8 +56,9 @@ const toggleAccordion = (accordionkey) => {
 }; 
 
 return ( 
-    <div> <p className='text-3xl font-bold sm:text-4xl text-sky-950 px-20 pt-24 dark:text-sky-500'>Frequently asked questions</p>
-        <div className="px-20 m-8"> 
+    <div className="px-10  py-16 gap-5 flex flex-col items-center justify-center bg-white dark:bg-gray-900 "> 
+    <p className='text-3xl font-bold sm:text-4xl text-sky-950 text-center dark:text-sky-500'>Frequently asked questions</p>
+        <div className="pt-10 flex flex-col items-center justify-center w-1/2"> 
             {accordions.map((accordion) => ( 
                 <Accordion 
                     key={accordion.key} 

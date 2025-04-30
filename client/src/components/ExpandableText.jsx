@@ -16,7 +16,7 @@ export const ExpandableText = ({ children, descriptionLength }) => {
   return (
     <span className='text'>
       {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
-      <span onClick={toggleText} className='toggle-button'>
+      <span onClick={toggleText} className='toggle-button dark:text-sky-400'>
         {isExpanded ? 'Show less' : 'Show more'}
       </span>
       

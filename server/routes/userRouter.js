@@ -5,6 +5,8 @@ const protect=require("../middleware/auth.js");
 
 router.get("/all",protect,routeController.getAllUsers);
 
+router.get("/checkauth",protect,routeController.getUser);
+
 router.get("/:id",protect,routeController.getUser);
 
 router.post("/add",routeController.addUser);

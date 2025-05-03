@@ -4,9 +4,10 @@ import "./UserBookings.css";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
-import { addReview, getBookings } from "../utils/ApiCalls";
+import { AddReview, GetBookings } from "../utils/ApiCalls";
 import { AddReviewPopup } from "../components/authModel/AddReviewPopup";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/loading/Spinner";
 
 function UserBookings() {
   const user = useSelector((state) => state.user.user);
@@ -15,6 +16,7 @@ function UserBookings() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [messageSuccess, setMessageSuccess] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const DATE_OPTIONS = {
     weekday: "short",
@@ -27,21 +29,24 @@ function UserBookings() {
     (state) => state.user.isUserAuthenticated
   );
   async function getUserBookings() {
-    const response = await getBookings(user._id);
+    const response = await GetBookings(user._id);
     setMessageSuccess("Bookings fetched successfully");
+    setIsLoading(false);
     setTimeout(() => setMessageSuccess(""), 3000);
     setBookings(response.data.rentals.rentals);
   }
 
   const handleAddReview = async (review) => {
     try {
+      setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      await addReview(
+      await AddReview(
         review.review,
         review.rating,
         review.reviewername,
         review.userid
       );
+      setIsLoading(false);
       setIsPopupVisible(false);
       setMessageSuccess("Your Review Added");
       setTimeout(() => {
@@ -67,6 +72,7 @@ function UserBookings() {
       <div>
         <h1>Your Booking Details</h1>
       </div>
+      {isLoading?<Spinner/>:
       <div className="wrapper">
         <Table className="table-auto border-collapse border border-gray-400 userTable">
           <Thead>
@@ -82,7 +88,7 @@ function UserBookings() {
             </Tr>
           </Thead>
           <Tbody>
-            {bookings.map((booking, index) => (
+            {bookings.length==0?<Tr><td colspan={8}>You don't have any bookings</td></Tr>:bookings.map((booking, index) => (
               <Tr key={booking._id}>
                 <Td>{index + 1}</Td>
                 <Td>
@@ -128,7 +134,7 @@ function UserBookings() {
             onCancel={() => setIsPopupVisible(false)}
           />
         )}
-      </div>
+      </div>}
 
         
   

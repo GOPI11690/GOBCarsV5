@@ -4,11 +4,12 @@ import Datepicker from "react-tailwindcss-datepicker";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {searchStart} from "../redux/slices/searchSlice";
-import { addLicense, addPayment, addRental } from '../utils/ApiCalls';
+import { AddLicense, AddPayment, AddRental } from '../utils/ApiCalls';
 import { useNavigate} from 'react-router-dom';
 import { ConfirmActionsPopup } from "../components/authModel/ConfirmActionsPopup";
 import moment from 'moment';
 import { NotifyCompletePayment } from '../components/authModel/NotifyCompletePayment';
+import ProgressBar from '../components/loading/ProgressBar';
 moment().format();
 
 const BookingPage = () => {
@@ -32,6 +33,7 @@ const BookingPage = () => {
     const [rentalid,setRentalId]=useState("");  
     const [messageSuccess, setMessageSuccess] = useState("");
       const [messageFailed, setMessageFailed] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
   const MIN_DATE = new Date();
   MIN_DATE.setDate(MIN_DATE.getDate() - 0);
   const navigate=useNavigate();
@@ -76,10 +78,14 @@ const BookingPage = () => {
       return;
     }
     else{
-      setPay(true);
-      console.log("invoked in setpY",pay)
+      setIsLoading(true);
+      setTimeout(() => {
+        setPay(true);
       setTermOne(false);
       setTermTwo(false);
+      setIsLoading(false);
+      }, 1500);
+      
       
     }
   }
@@ -128,7 +134,12 @@ const handlePay = async () => {
     setMessageFailed("Enter all Details");
   }
   else{
-    setIsPopupConfirmVisible(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsPopupConfirmVisible(true);
+      setIsLoading(false);
+    }, 1000);
+   
   }
   
 };
@@ -149,9 +160,9 @@ const handleConfirm=async ()=>{
   }, 100);
   
   try{
-    await addLicense(licenseNumber, expiryDate,user._id);
+    await AddLicense(licenseNumber, expiryDate,user._id);
     setMessageSuccess("License Number added");
-    const response=await addRental(rangeDate.startDate,rangeDate.endDate,0,"pending",search.carid,user._id);
+    const response=await AddRental(rangeDate.startDate,rangeDate.endDate,0,"pending",search.carid,user._id);
     setRentalId(response.data.rental._id);
     setMessageSuccess("Rental details added");
     
@@ -161,7 +172,7 @@ const handleConfirm=async ()=>{
 }
 const handleOk=async ()=>{
   try{
-    await addPayment(calculateData.totalValue,"Reserved",rentalid);
+    await AddPayment(calculateData.totalValue,"Reserved",rentalid);
     dispatch(
       searchStart({
         model:null,
@@ -206,6 +217,7 @@ const handleOk=async ()=>{
             carimg:search.carimg,
             carrent:search.carrent,
             carname:search.carname,
+            cartype:search.cartype,
               }))
   },[rangeDate,diffDay]);
 
@@ -346,13 +358,13 @@ const handleOk=async ()=>{
         <button onClick={(e)=>handleSubmit(e)} className="w-full bg-green-500 py-1 text-xl rounded-md hover:bg-green-700 text-white mb-10"
               type="button">Proceed To Payment</button>
               
-          </div>    
+          </div> {isLoading?<ProgressBar/>:'' }  
         
       </div>
       
       </div>
       : 
-      <div className='flex flex-col justify-center items-center bg-slate-200 rounded-xl'>
+      <div className='flex flex-col justify-center items-center bg-slate-200 dark:text-black rounded-xl'>
         
         <form>
         <div className='payment flex flex-col gap-4 justify-center items-center'>
@@ -449,6 +461,7 @@ const handleOk=async ()=>{
               Pay now
             </button>
             </div>
+            {isLoading?<ProgressBar/>:''}
           </div>
           
         </div>

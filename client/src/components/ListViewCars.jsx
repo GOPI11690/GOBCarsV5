@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {searchStart} from "../redux/slices/searchSlice";
 import { useNavigate} from 'react-router-dom';
+import { GetAllCars } from "../utils/ApiCalls";
+import Spinner from "./loading/Spinner";
 
 const ListViewCars = ({ fillCategory }) => {
   const search = useSelector((state) => state.search.search);
@@ -13,7 +15,7 @@ const ListViewCars = ({ fillCategory }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [filteredCarList, setFilteredCarList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate=useNavigate();
   const category = [
@@ -28,6 +30,7 @@ const ListViewCars = ({ fillCategory }) => {
   const [carToShow, setCarToShow] = useState(5);
   const loadMoreProducts = () => {
     if (carToShow >= filteredCarList.length) {
+      alert("No more cars to show");
       return;
     } else {
       setCarToShow((prevCarToShow) => prevCarToShow + 5);
@@ -68,32 +71,22 @@ const ListViewCars = ({ fillCategory }) => {
   }, [selectedCategories, carList]);
 
   const getCategories = () => {
-    try {
-      setLoading(true);
-
-      setCategories(fillCategory);
-    } finally {
-      setLoading(false);
+      setCategories(fillCategory);    
     }
-  };
+ 
   const getCars = async () => {
     setLoading(true);
-
-    await fetch("http://localhost:3030/api/car/all")
-      .then((res) => res.json())
-      .then((data) => {
-        setCarList(data.Cars.cars);
-        setFilteredCarList(data.Cars.cars);
+    const response=await GetAllCars()
+        setCarList(response.data.Cars.cars);
+        setFilteredCarList(response.data.Cars.cars);
         getCategories(); // get the categories list
-      })
-      .catch((err) => alert(err))
-      .finally(() => {
         setLoading(false);
-      });
+      ;
   };
 
   useEffect(() => {
     getCars();
+    setLoading(false);
   }, []);
 
 const handleSelect=async (car)=>{
@@ -133,7 +126,7 @@ const handleSelect=async (car)=>{
 
 
   return (
-    <div className="px-10 bg-slate-100 dark:bg-gray-900 dark:text-white border-solid grid grid-rows-5 gap-5">
+    <div>{loading?<Spinner/>:<div className="px-10 bg-slate-100 dark:bg-gray-900 dark:text-white border-solid grid grid-rows-5 gap-5">
       <div className="leftLayout lg:grid shadow-md dark:shadow-slate-300 row-span-full rounded-2xl col-span-1 pt-5 ">
         <div className="p-3 text-xl">
           <h3 className="text-lg font-bold">Filter Category</h3>
@@ -235,7 +228,8 @@ const handleSelect=async (car)=>{
           Load More
         </button>
       </div>
-    </div>
+    </div>}</div>
+    
   );
 };
 

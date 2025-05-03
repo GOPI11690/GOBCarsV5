@@ -11,7 +11,6 @@ const Pagination = ({
     }
   
     const paginate = (pageNumber, e) => {
-        console.log(currentPage);
       e.preventDefault();
        setCurrentPage(pageNumber);
     };

@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom"
 import { FaPlusCircle } from "react-icons/fa";
 import axios from "axios";
 import { ConfirmAddPopup } from "../../../components/authModel/ConfirmAddPopup";
+import { AddCar } from '../../../utils/ApiCalls';
 
 
 function AdminDashboard() {
@@ -18,28 +19,11 @@ function AdminDashboard() {
     const handleConfirmAdd = async (carDetail) => {
         
         try {
-            const configuration = {
-                method: "post",
-                url: "http://localhost:3030/api/car/add",
-                data: {
-                  name:carDetail.model,
-                  brand:carDetail.brand,
-                  type:carDetail.type,
-                  fuel:carDetail.fuel,
-                  capacity: carDetail.capacity,
-                  gear:carDetail.gear,
-                  rateperday:parseInt(carDetail.rateperday),
-                  thumbnail: carDetail.thumbnail,
-                  status:carDetail.status,
-                  userid:carDetail.userid,
-                },withCredentials:true
-              };setIsPopupVisible(false);
-               // make the API call
-               console.log(configuration)
-                   await axios(configuration)
-                      .then(() => {
-                        setMessageSuccess("Your Car Details registered sucessfully");
-                        setTimeout(() => setMessageSuccess(""), 3000);})
+           // make the API call
+          await AddCar(carDetail.model,carDetail.brand,carDetail.type,carDetail.fuel,carDetail.capacity,carDetail.gear,parseInt(carDetail.rateperday),carDetail.thumbnail,carDetail.status,carDetail.userid);
+          setIsPopupVisible(false);
+          setMessageSuccess("Your Car Details registered sucessfully");
+          setTimeout(() => setMessageSuccess(""), 3000)
                     
         } catch (error) {
           setMessageFailed("Something Wrong");

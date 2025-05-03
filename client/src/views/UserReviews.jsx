@@ -7,7 +7,8 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 import { ConfirmActionsPopup } from "../components/authModel/ConfirmActionsPopup";
-import {getReviews} from "../utils/ApiCalls";
+import {GetReviews} from "../utils/ApiCalls";
+import Spinner from "../components/loading/Spinner";
 
 function UserReviews() {
   const user = useSelector((state) => state.user.user);
@@ -16,6 +17,7 @@ function UserReviews() {
   const [isPopupDeleteVisible, setIsPopupDeleteVisible] = useState(false);
   const [messageSuccess, setMessageSuccess] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const DATE_OPTIONS = {
     weekday: "short",
@@ -41,8 +43,9 @@ function UserReviews() {
     
   }, [isUserAuthenticated]);
   async function getUserReviews() {
-    const response = await getReviews(user._id);
+    const response = await GetReviews(user._id);
     setReviews(response.data.reviews.reviews);
+    setIsLoading(false);
     setMessageSuccess("Reviews fetched successfully");
     setTimeout(() => setMessageSuccess(""), 3000);  
   }
@@ -74,7 +77,7 @@ function UserReviews() {
     } catch (error) {
       setMessageSuccess("Review fetch error");
     setTimeout(() => setMessageSuccess(""), 3000);  
-      console.error(error);
+      throw new Error("Error in userreviews",error);
     }
   };
   const handleButtonCancel = () => {
@@ -85,6 +88,7 @@ function UserReviews() {
       <div>
         <h1>Your Reviews</h1>
       </div>
+      {isLoading?<Spinner/>:
       <div className="wrapper">
         <Table className="table-auto border-collapse border border-gray-400 userTable">
           <Thead>
@@ -98,7 +102,7 @@ function UserReviews() {
             </Tr>
           </Thead>
           <Tbody>
-            {reviews.map((review, index) => (
+            {reviews.length==0?<Tr><Td colspan={6}>You don't have any reviews</Td></Tr>:reviews.map((review, index) => (
               <Tr key={review._id}>
                 <Td>{index + 1}</Td>
                 <Td>
@@ -138,7 +142,7 @@ function UserReviews() {
             onCancel={() => handleButtonCancel("delete")}
           />
         )}
-      </div>
+      </div>}
      
     </div>
   );

@@ -4,7 +4,8 @@ const asyncHandler=require("express-async-handler");
 const UserModel=require("../model/userModel.js");
 
 const protect=asyncHandler(async(req,res,next)=>{
-    let token=req.cookies.token;
+    //check if token is present in cookies
+    let {token}=req.cookies;
     if (!token) {
         return res.status(401).json({
             message: "Not authorized, no token found!"
@@ -12,14 +13,14 @@ const protect=asyncHandler(async(req,res,next)=>{
     };
         try{
             let decodeToken = jwt.verify(token, process.env.SECRET_KEY);
-            console.log(decodeToken)
 
         if(!decodeToken) {
             return res.status(402).json({
                 message: "Not authorized, invalid token!"
             })
         };
-            req.user=await UserModel.findById(decodeToken.id).select('-password'); 
+        //get user data
+            req.user=await UserModel.findById(decodeToken.id).select('-password');
             next();
             
         } catch (error) {

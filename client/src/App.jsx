@@ -1,12 +1,11 @@
 import "./App.css";
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { loginSuccessful, logout } from "./redux/slices/userSlice"
 import { useLayoutEffect } from "react";
 import { ThemeProvider } from "./theme/ThemeContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
-// import SigninSignup from "./pages/SigninSignup";
-// import Homepage from "./pages/Homepage";
-// import RequireAuth from './components/RequireAuth';
-
 import {
   BrowserRouter as Router,
   Routes,
@@ -37,7 +36,8 @@ import BookingPage from "./pages/BookingPage";
 import CarTechnicalsPage from "./pages/CarTechnicalsPage";
 import RentalSummary from "./pages/RentalSummary";
 import AdminBookings from "./components/adminModel/views/AdminBookings";
-
+import { CheckUserAuthenticated } from "./utils/ApiCalls";
+import Spinner from "./components/loading/Spinner";
 const Wrapper = ({ children }) => {
   const location = useLocation();
 
@@ -50,9 +50,35 @@ const Wrapper = ({ children }) => {
 };
 
 function App() {
+  const [isLoading, setLoading] = useState(true);
+  const dispatch = useDispatch()
+
+  const isUserAuthenticate=async ()=>{
+    try{
+    const response=await CheckUserAuthenticated();
+    
+    dispatch(loginSuccessful(response.data.user))
+    setLoading(false);
+  } catch (err) {
+    dispatch(logout());
+    setLoading(false);
+    console.log("New User without token : ",err);
+    
+  }
+
+  }
+  
+
+  useEffect(() => {
+    isUserAuthenticate();
+    
+  }, [])
+  
   return (
     <ThemeProvider>
+       { isLoading? <div className="min-h-screen flex flex-row justify-center items-center"><Spinner /></div>: 
       <main className="min-h-screen bg-white dark:bg-gray-900">
+     
         <Navigation />
         {/* <Router> */}
         <Wrapper>
@@ -98,7 +124,7 @@ function App() {
           </Routes>
         </Wrapper>
         <Footer />
-      </main>
+      </main>}
     </ThemeProvider>
   );
 }

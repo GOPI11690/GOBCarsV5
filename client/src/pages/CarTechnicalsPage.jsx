@@ -5,14 +5,16 @@ import { GiGearStickPattern } from "react-icons/gi";
 import { MdEventSeat, MdGpsFixed, MdOutlineAir } from "react-icons/md";
 import { AiFillSafetyCertificate } from "react-icons/ai";
 import { Navigate, useNavigate } from "react-router-dom";
-import { getCar } from "../utils/ApiCalls";
+import { GetCar } from "../utils/ApiCalls";
 import ReviewComponent from "../components/ReviewComponent";
 import { useSelector } from "react-redux";
+import Spinner from "../components/loading/Spinner";
 
 const CarTechnicalsPage = () => {
     const search = useSelector((state) => state.search.search);
     const navigate = useNavigate();
     const [car,setCar]=useState([]);
+    const [isLoading,setIsLoading]=useState(true);
 
     const isUserAuthenticated = useSelector(
         state => state.user.isUserAuthenticated
@@ -20,8 +22,9 @@ const CarTechnicalsPage = () => {
       
      
     const getCarDetails=async()=>{
-        const carData=await getCar(search.carid);
+        const carData=await GetCar(search.carid);
         setCar(carData.data.Car.car);
+        setIsLoading(false);
     }
     const handleBookNow=()=>{
       navigate("/bookingpage")
@@ -45,7 +48,7 @@ const CarTechnicalsPage = () => {
             <FaCircleLeft size={30} color="orange"/><span className="flex flex-row">Go Back</span></div>
             </div>
 
-        
+        {isLoading?<Spinner/>:
       <div className="border-solid shadow-xl flex flex-col md:flex-row justify-center gap-5">
       
         <div className="md:w-1/2 flex flex-col p-5 ">
@@ -110,7 +113,7 @@ const CarTechnicalsPage = () => {
         </button>
         </div>
         </div>
-      </div>
+      </div>}
       <div className="border-solid shadow-xl bg-white p-5" >
       <ReviewComponent/>
       </div>

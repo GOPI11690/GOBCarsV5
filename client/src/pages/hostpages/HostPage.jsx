@@ -18,7 +18,7 @@ const HostPage = () => {
         <Link type='submit' to={"login"}><span>Join Now</span></Link></div>
       
       <div className="pt-10">
-       <table>
+       <table className='table-fixed w-full text-center'>
         
             <tbody>
                 <tr>

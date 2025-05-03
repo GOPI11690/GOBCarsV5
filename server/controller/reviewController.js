@@ -22,9 +22,8 @@ const getAllReviews = asyncHandler(async (req, res) => {
   }
 });
 const getReviews = asyncHandler(async (req, res) => {
-  try {
-    // const UserId = ObjectId(req.params.id);
-    const UserId=req.params.id;
+  try {console.log(req.user);
+    const UserId=req.user._id;
           if (!UserId) {
       return res.status(400).json({
         message: "No userid found!",

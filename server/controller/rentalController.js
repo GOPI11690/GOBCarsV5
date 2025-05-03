@@ -22,8 +22,8 @@ const getAllRentals=asyncHandler(async (req, res) => {
       }
     
 });
-/* Get rental data with id - GET method */
-const getRental=asyncHandler(async (req, res) => { 
+/* Get rental data with user id - GET method */
+const getRentals=asyncHandler(async (req, res) => { 
    try {
        const UserId=req.params.id;
              if (!UserId) {
@@ -50,6 +50,30 @@ const getRental=asyncHandler(async (req, res) => {
      }
     
 });
+/* Get rental data with id - GET method */
+const getRental=asyncHandler(async (req, res) => { 
+  try {
+      const rentalid=req.params.id;
+                
+      const rental=await RentalModel.findById(rentalid);
+    
+      if (!rental) {
+        res.status(200).json({
+          message: "You don't have any Bookings!",
+        });
+        throw new Error("Rental not found");
+      }
+  
+      res.status(200).json({
+        message: "Rental fetched ok!",
+        rental: { rental },
+      });
+    } catch (err) {
+      res.send(err);
+    }
+   
+});
+
 
 //creating Rental details
 const addRental=asyncHandler(async(req, res) => {
@@ -108,4 +132,4 @@ const rental=await RentalModel.findById(req.params.id);
     res.status(200).send(payment);
 });
 
-module.exports = {getAllRentals,getRental,addRental,deleteRental,addPayment};
+module.exports = {getAllRentals,getRentals,getRental,addRental,deleteRental,addPayment};

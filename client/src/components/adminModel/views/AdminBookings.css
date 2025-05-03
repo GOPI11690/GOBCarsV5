@@ -18,7 +18,7 @@
     color:white;
 }
 
-.userTable th.addReview {
+.userTable th.checkInfo {
     background-color: #043774;
 }
 
@@ -31,14 +31,14 @@
 
 
 
-.addReviewButton {
+.checkBtn {
     color: white;
     background-color: rgb(61, 130, 0);
     transition: background-color 0.2s ease-in-out;
     border-radius: 10px;
     padding: 5px;
 }
-.addReviewButton:hover {
+.checkBtn:hover {
     background-color: rgb(181, 136, 11);
 }
 h1{

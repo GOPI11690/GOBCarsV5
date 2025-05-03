@@ -126,16 +126,7 @@ const deleteCar=asyncHandler(async(req,res) => {
         res.status(400);
         throw new Error("Car not found");
     }
-    //user validation
-    if(!req.user){
-        res.status(401);
-        throw new Error("User not found");
-    }
-    //authorized user only deleting car
-    if(car.userid.toString()!==req.user.id){
-        res.status(401);
-        throw new Error("User not authorized");
-    }
+   
     //deleting the car data
     const deleteCar=await CarModel.deleteOne({_id:req.params.id});
     res.status(200).send("Car ID : "+car.id);

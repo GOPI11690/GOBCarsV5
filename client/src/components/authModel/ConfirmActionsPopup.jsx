@@ -1,5 +1,6 @@
 import React from "react"
 import  "./ConfirmActionsPopup.css"
+import ProgressBar from "../loading/ProgressBar"
 
 export const ConfirmActionsPopup = ({
   btnName,
@@ -7,6 +8,10 @@ export const ConfirmActionsPopup = ({
   onConfirm,
   onCancel
 }) => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  setTimeout(() => {
+    setIsLoading(true);
+  }, 5000);
   return (
     <div className="wrappers">
       <div className="popups">
@@ -19,6 +24,7 @@ export const ConfirmActionsPopup = ({
             {btnName}
           </button>
         </div>
+        {isLoading?<ProgressBar/>:""}
          
       </div>
     </div>

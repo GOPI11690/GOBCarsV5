@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Star } from "lucide-react"
-import {getReviews} from "../utils/ApiCalls";
+import {GetReviews} from "../utils/ApiCalls";
+import Spinner from "./loading/Spinner";
 
 const Marquee = ({
   children,
@@ -82,10 +83,12 @@ const ReviewCard = ({ avatar, name, rating, review }) => (
 export default function ReviewComponent() {
   
   const [reviews, setReviews] = useState([]);
+  const [IsLoading, setIsLoading] = useState(true);
 
   async function getAllReviews() {
-    const response = await getReviews("admin");
+    const response = await GetReviews("admin");
     setReviews(response.data.reviews.reviews);
+    setIsLoading(false);
   }
     useEffect(() => {
       getAllReviews();
@@ -93,7 +96,7 @@ export default function ReviewComponent() {
 
   return (
     <div className=" bg-background p-2 flex flex-col gap-8 items-center justify-center">
-      <div className=" w-3/4 space-y-8">
+      {IsLoading?<Spinner/>:<div className=" w-3/4 space-y-8">
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold text-center text-foreground mb-6 dark:text-white">
             What Our Customers Say
@@ -111,7 +114,7 @@ export default function ReviewComponent() {
             ))}
           </Marquee>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

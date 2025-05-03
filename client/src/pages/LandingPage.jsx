@@ -75,10 +75,13 @@ const handleClick=()=>{
             onChange={newValue => setReturnDate(newValue)}
         /> 
     </div>
-          
+    <div className="flex flex-col">
+      <label className="block font-medium text-transparent">Search</label>
           <button className="searchBtn" onClick={handleClick}>
             <span>Search</span>
           </button> 
+  </div>
+          
         
         </div>
      

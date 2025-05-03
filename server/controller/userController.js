@@ -28,12 +28,27 @@ const getAllUsers=async (req, res) => {
 /* Get user data with id - GET method */
 const getUser=async (req, res) => { 
     try{
-        //get user data
-        const user=await UserModel.findById(req.params.id);
-        res.status(200).json(user);
-        console.log("Get Selected user Data successfully ");
-    }
-    catch(err){res.send(err);}
+        let userid;
+        //get user id from params or from token
+        if(!req.params.id){
+            userid=req.user._id;
+        }
+        else{
+            userid=req.params.id;
+        }
+            //get  user data
+        const user=await UserModel.findById(userid);
+        //User validation
+        if (!user) {
+            return res.status(400).json({
+              message: "No user found!",
+            });}
+        res.status(200).json({
+            message: "User data fetched ok!",
+            user:{... user._doc}
+          });
+        }
+        catch(err) {res.send(err);}
     
 };
 //login user
@@ -200,4 +215,5 @@ const logOut=asyncHandler(async(req,res)=>{
    
     
 });
+
 module.exports = {getAllUsers,getUser,addUser,updateUser,deleteUser,loginUser,getProfile,addLicense,logOut};

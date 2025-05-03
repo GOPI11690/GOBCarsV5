@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
 import "./DealerCars.css";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 import { ConfirmActionsPopup } from "../components/authModel/ConfirmActionsPopup";
+import { DeleteCar, GetDealerCars } from "../utils/ApiCalls";
+import Spinner from "../components/loading/Spinner";
 
 function DealerCars() {
   const user = useSelector((state) => state.user.user);
@@ -15,6 +16,7 @@ function DealerCars() {
   const [isPopupDeleteVisible, setIsPopupDeleteVisible] = useState(false);
     const [messageSuccess, setMessageSuccess] = useState("");
     const [messageFailed, setMessageFailed] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
   const DATE_OPTIONS = {
     weekday: "short",
@@ -23,22 +25,7 @@ function DealerCars() {
     day: "numeric",
   };
 
-  const getCars = async (userid) => {
-    try {
-      const url = "http://localhost:3030/api/car/dealer/"+userid;
-      const response = await axios.get(
-        url,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
-      return response;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  
 
   const isUserAuthenticated = useSelector(
     (state) => state.user.isUserAuthenticated
@@ -50,18 +37,19 @@ function DealerCars() {
       return <Navigate to="/" />;
     }
     else{
-    getDealerCars();
+    getDealerCar();
     }
   }, [isUserAuthenticated]);
-  async function getDealerCars() {
-    const response = await getCars(user._id);
-    console.log(response);
+  async function getDealerCar() {
+    const response = await GetDealerCars(user._id);
+    
     if(response.data.Cars.cars.length<1){
         setMessageFailed(response.data.message);
           setTimeout(() => setMessageFailed(""), 3000);
     }
     
     setCars(response.data.Cars.cars);
+    setIsLoading(false);
     setMessageSuccess("Your Cars fetched sucessfully");
           setTimeout(() => setMessageSuccess(""), 3000);
 
@@ -82,9 +70,7 @@ function DealerCars() {
   const handleConfirmDelete = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      const url =
-        "http://localhost:3030/api/car/delete/" + carToDelete._id;
-      await axios.delete(url, { withCredentials: true });
+      await DeleteCar(carToDelete._id);
       setCars((prevCars) =>
         prevCars.filter((car) => car._id !== carToDelete._id)
       );
@@ -94,7 +80,7 @@ function DealerCars() {
     } catch (error) {
       setMessageFailed("Something Wrong");
       setTimeout(()=>setMessageFailed(""),3000);
-      console.error(error);
+      throw new Error("Error deleting car: " + error.message);
     }
   };
   const handleButtonCancel = () => {
@@ -105,6 +91,7 @@ function DealerCars() {
       <div>
         <h1>Your Cars</h1>
       </div>
+      {isLoading?<Spinner/>:
       <div className="wrapper">
         <Table className="table-auto border-collapse border border-gray-400 userTable">
           <Thead>
@@ -118,7 +105,7 @@ function DealerCars() {
             </Tr>
           </Thead>
           <Tbody>
-            {cars.map((car, index) => (
+            {cars.length==0?<Tr><Td colspan={6}>You don't have any Cars</Td></Tr>:cars.map((car, index) => (
               <Tr key={car._id}>
                 <Td>{index + 1}</Td>
                 <Td>
@@ -156,7 +143,7 @@ function DealerCars() {
           {messageFailed && (
             <span className="text-red-500">{messageFailed}</span>
           )}
-      </div>
+      </div>}
     </div>
   );
 }

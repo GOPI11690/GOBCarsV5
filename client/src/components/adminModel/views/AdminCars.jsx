@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
 import "./AdminCars.css";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
+
 import { ConfirmActionsPopup } from "../../authModel/ConfirmActionsPopup";
+import { DeleteCar, GetAllCars } from "../../../utils/ApiCalls";
+import Spinner from "../../loading/Spinner";
 
 function AdminCars() {
   const [cars, setCars] = useState([]);
@@ -11,6 +15,7 @@ function AdminCars() {
   const [isPopupDeleteVisible, setIsPopupDeleteVisible] = useState(false);
     const [messageSuccess, setMessageSuccess] = useState("");
     const [messageFailed, setMessageFailed] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const DATE_OPTIONS = {
     weekday: "short",
@@ -19,43 +24,33 @@ function AdminCars() {
     day: "numeric",
   };
 
-  const getCars = async () => {
-    try {
-      const url = "http://localhost:3030/api/car/all";
-      const response = await axios.get(
-        url,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
-      return response;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  
 
   const isUserAuthenticated = useSelector(
     (state) => state.user.isUserAuthenticated
   );
 
-  if (!isUserAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  
   useEffect(() => {
-    getAllCars();
-  }, []);
-  async function getAllCars() {
-    const response = await getCars();
-    console.log(response);
+    if (!isUserAuthenticated) {
+      return <Navigate to="/" />;
+    }
+    else{
+      getAdminCars();
+    }
+   
+  }, [isUserAuthenticated]);
+  async function getAdminCars() {
+    const response = await GetAllCars();
     if(response.data.Cars.cars.length<1){
         setMessageFailed(response.data.message);
           setTimeout(() => setMessageFailed(""), 3000);
+          
     }
     
     setCars(response.data.Cars.cars);
     setMessageSuccess("Your Cars fetched sucessfully");
+    setIsLoading(false);
           setTimeout(() => setMessageSuccess(""), 3000);
 
   }
@@ -74,20 +69,21 @@ function AdminCars() {
   };
   const handleConfirmDelete = async () => {
     try {
+      setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      const url =
-        "http://localhost:3030/api/car/delete/" + carToDelete._id;
-      await axios.delete(url, { withCredentials: true });
+      await DeleteCar(carToDelete._id);
       setCars((prevCars) =>
         prevCars.filter((car) => car._id !== carToDelete._id)
       );
       setIsPopupDeleteVisible(false);
+      setIsLoading(false);
       setMessageSuccess("Your Car deleted sucessfully");
                         setTimeout(() => setMessageSuccess(""), 3000);
     } catch (error) {
       setMessageFailed("Something Wrong");
+      setIsLoading(false);
       setTimeout(()=>setMessageFailed(""),3000);
-      console.error(error);
+      throw new Error("Error in admincars : ",error);
     }
   };
   const handleButtonCancel = () => {
@@ -99,44 +95,46 @@ function AdminCars() {
         <h1>Your Cars</h1>
       </div>
       <div className="wrapper">
-        <table className="table-auto border-collapse border border-gray-400 userTable">
-          <thead>
-            <tr>
-              <th>Sl.No</th>
-              <th>Created At</th>
-              <th>Car ID</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th className="deleteCell">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cars.map((car, index) => (
-              <tr key={car._id}>
-                <td>{index + 1}</td>
-                <td>
+        <Table className="table-auto border-collapse border border-gray-400 userTable">
+          <Thead>
+            <Tr>
+              <Th>Sl.No</Th>
+              <Th>Created At</Th>
+              <Th>Car ID</Th>
+              <Th>Name</Th>
+              <Th>Status</Th>
+              <Th className="deleteCell">Action</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+          {cars.length==0?<Tr><Td colSpan={6}>You don't have any Cars</Td></Tr>:cars.map((car, index) => (
+              <Tr key={car._id}>
+                <Td>{index + 1}</Td>
+                <Td>
                   {new Date(car.createdAt).toLocaleString(
                     "en-US",
                     DATE_OPTIONS
                   )}
-                </td>
-                <td>{car._id}</td>
-                <td>{car.brand +" "+car.name}</td>
-                <td>{car.status}</td>
-                <td className="deleteData">
+                </Td>
+                <Td>{car._id}</Td>
+                <Td>{car.brand +" "+car.name}</Td>
+                <Td>{car.status}</Td>
+                <Td className="deleteData">
                   <button
                     className="deleteButton"
                     onClick={() => handleDelete(car)}
                   >
                     Delete
                   </button>
-                </td>
-              </tr>
+                </Td>
+              </Tr>
             ))}
-          </tbody>
-        </table>
+          </Tbody>
+        </Table>
+        {isLoading?<Spinner/>:""}
         {isPopupDeleteVisible && carToDelete && (
           <ConfirmActionsPopup
+          btnName="Delete"
             message={deleteMessage}
             onConfirm={handleConfirmDelete}
             onCancel={() => handleButtonCancel("delete")}

@@ -27,7 +27,6 @@ const currentPosts = filteredCarList.slice(indexOfFirstPost, indexOfLastPost);
 
   const removeCategory = (category) => {
     if(selectedCategories.includes(category)){
-        console.log(selectedCategories)
         const removedList = selectedCategories.filter((item) => (item !== category));
         setSelectedCategories(removedList);
     }
@@ -61,7 +60,7 @@ const currentPosts = filteredCarList.slice(indexOfFirstPost, indexOfLastPost);
     
     await fetch('http://localhost:3030/api/car/all')
     .then(res => res.json())
-    .then(data => {console.log(data);
+    .then(data => {
         setCarList(data.Cars.cars);
         setFilteredCarList(data.Cars.cars);
         getCategories(); // get the categories list

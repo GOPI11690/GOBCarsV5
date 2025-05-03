@@ -36,7 +36,6 @@ function UserDashboard() {
                 },withCredentials:true
               };setIsPopupVisible(false);
                // make the API call
-               console.log(configuration)
                    await axios(configuration)
                       .then(() => {
                         setMessageSuccess("Your Car Details registered sucessfully");

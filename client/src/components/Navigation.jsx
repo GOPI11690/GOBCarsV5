@@ -4,24 +4,15 @@ import ClickAwayListener from 'react-click-away-listener';
 
 import { ThemeToggle } from "../theme/ThemeToggle";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import {  FaPerson ,FaArrowRightToBracket,FaChessKnight    } from "react-icons/fa6";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {  FaArrowRightToBracket,FaChessKnight    } from "react-icons/fa6";
+import { IoPerson } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/userSlice";
-import axios from "axios";
+import { UserLogout } from "../utils/ApiCalls";
 
 
-const userLogout = async () => {
-  const response = await axios.post(
-    "http://localhost:3030/api/user/logout",
-    {},
-    {
-      withCredentials: true,
-    }
-  );
 
-  return response;
-};
 
 function Navigation() {
   const [nav, setNav] = useState(false);
@@ -43,12 +34,12 @@ function Navigation() {
     e.preventDefault();
 
     try {
-      await userLogout();
+      await UserLogout();
       dispatch(logout());
       setShowProfileMenu(false);
       navigate("/");
     } catch (error) {
-      console.error(error);
+      throw new Error("Error in logout", error);
     }
   };
   const handleClick = () => setNav(!nav);
@@ -74,27 +65,27 @@ function Navigation() {
             onClick={() => setShowProfileMenu(false)}
           >
             <Link to="/">
-              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg px-2">
+              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg p-2">
                 Home
               </li>
             </Link>
             <Link to="howitworks">
-              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color text-color hover:rounded-lg px-2">
+              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color text-color hover:rounded-lg p-2">
                 How it works
               </li>
             </Link>
             <Link to="cars">
-              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg px-2">
+              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg p-2">
                 Browse Cars
               </li>
             </Link>
             <Link to="retrospects">
-              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg px-2">
+              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg p-2">
                 Retrospects
               </li>
             </Link>
             <Link to="aboutus">
-              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg px-2">
+              <li className="cursor-pointer linkNav relative group hover:bg-white txt-color hover:rounded-lg p-2">
                 About Us
               </li>
             </Link>
@@ -129,12 +120,12 @@ function Navigation() {
           
         ) : (<div className="relative md:pr-40 ">
           
-          <button className="  rounder-lg h-[50px] sm:w-40 bg-sky-100 rounded-[50px] border-4 border-solid hover:border-sky-600 border-black p-2"
+          <button className="  rounder-lg h-[50px] sm:w-40 bg-sky-100 flex flex-row justify-between rounded-[50px] border-4 border-solid hover:neon-border border-black p-2"
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-          >
-            {/* <FaPerson   className="md:w-5 md:h-5 p-3" /> */}
-           <span className="hover:font-bold font-semibold flex flex-row  justify-around" >Hi!{" "}{user.name.charAt(0).toUpperCase() +
-              user.name.slice(1).toLowerCase()} <MenuIcon className="w-5 text-black" /></span> 
+          ><IoPerson size={25}   className="flex p-1" />
+            
+           <span className="hover:font-bold hidden font-semibold md:flex flex-row  justify-around" >Hi!{" "}{user.name.charAt(0).toUpperCase() +
+              user.name.slice(1).toLowerCase()}</span>  <MenuIcon className="w-5 text-black" />
             </button>
         </div>
           

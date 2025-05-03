@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
 import "./AdminReviews.css";
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
+
 import { ConfirmActionsPopup } from "../../../components/authModel/ConfirmActionsPopup";
-import { deleteReview, getReviews } from "../../../utils/ApiCalls";
+import { DeleteReview, GetReviews } from "../../../utils/ApiCalls";
+import Spinner from "../../loading/Spinner";
+
 
 function AdminReviews() {
   useSelector((state) => state.user.user);
@@ -13,6 +17,7 @@ function AdminReviews() {
   const [isPopupDeleteVisible, setIsPopupDeleteVisible] = useState(false);
   const [messageSuccess, setMessageSuccess] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const DATE_OPTIONS = {
     weekday: "short",
@@ -26,8 +31,9 @@ function AdminReviews() {
   );
 
   async function getAllReviews() {
-    const response = await getReviews("admin");
+    const response = await GetReviews("admin");
     setReviews(response.data.reviews.reviews);
+    setIsLoading(false);
     setMessageSuccess("Review fetched successfully");
       setTimeout(() => setMessageSuccess(""), 3000);
   }
@@ -46,18 +52,21 @@ function AdminReviews() {
   };
   const handleConfirmDelete = async () => {
     try {
+      setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      await deleteReview(reviewToDelete._id);
+      await DeleteReview(reviewToDelete._id);
       setMessageSuccess("Review deleted successfully");
       setTimeout(() => setMessageSuccess(""), 3000);
       setReviews((prevReviews) =>
         prevReviews.filter((review) => review._id !== reviewToDelete._id)
       );
+      setIsLoading(false);
       setIsPopupDeleteVisible(false);
     } catch (error) {
       setMessageFailed("Something went wrong while deleting the review");
+      setIsLoading(false);
       setTimeout(() => setMessageFailed(""), 3000);
-      console.error(error);
+      throw new Error("Error in AdminReviews",error);
     }
   };
   const handleButtonCancel = () => {
@@ -76,48 +85,50 @@ function AdminReviews() {
         <h1>All Reviews</h1>
       </div>
       <div className="wrapper">
-        <table className="table-auto border-collapse border border-gray-400 userTable">
-          <thead>
-            <tr>
-              <th>Sl.No</th>
-              <th>Created At</th>
-              <th>Reviewer Name</th>
-              <th>Review</th>
-              <th>Rating(1 to 5)</th>
-              <th className="deleteCell">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reviews.map((review, index) => (
-              <tr key={review._id}>
-                <td>{index + 1}</td>
-                <td>
+        <Table className="table-auto border-collapse border border-gray-400 userTable">
+          <Thead>
+            <Tr>
+              <Th>Sl.No</Th>
+              <Th>Created At</Th>
+              <Th>Reviewer Name</Th>
+              <Th>Review</Th>
+              <Th>Rating(1 to 5)</Th>
+              <Th className="deleteCell">Action</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+          {reviews.length==0?<Tr><Td colSpan={6}>You don't have any reviews</Td></Tr>:reviews.map((review, index) => (
+              <Tr key={review._id}>
+                <Td>{index + 1}</Td>
+                <Td>
                   {new Date(review.createdAt).toLocaleString(
                     "en-US",
                     DATE_OPTIONS
                   )}
-                </td>
-                <td>{review.reviewername}</td>
-                <td>{review.review}</td>
-                <td>{review.rating}</td>
-                <td className="deleteData">
+                </Td>
+                <Td>{review.reviewername}</Td>
+                <Td>{review.review}</Td>
+                <Td>{review.rating}</Td>
+                <Td className="deleteData">
                   <button
                     className="deleteButton"
                     onClick={() => handleDelete(review)}
                   >
                     Delete
                   </button>
-                </td>
-              </tr>
+                </Td>
+              </Tr>
             ))}
-          </tbody>
-        </table>
+          </Tbody>
+        </Table>
+        {isLoading?<Spinner /> : ""}
         {messageSuccess && (
           <span className="text-green-500">{messageSuccess}</span>
         )}
         {messageFailed && <span className="text-red-500">{messageFailed}</span>}
         {isPopupDeleteVisible && reviewToDelete && (
           <ConfirmActionsPopup
+          btnName={"Delete"}
             message={deleteMessage}
             onConfirm={handleConfirmDelete}
             onCancel={() => handleButtonCancel("delete")}

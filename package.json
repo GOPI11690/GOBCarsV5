@@ -1,17 +1,25 @@
 {
-  "name": "gobcars",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.1",
+    "nodemon": "^3.1.9"
+  },
+  "name": "backend",
   "version": "1.0.0",
-  "description": "gob cars project",
-  "license": "ISC",
-  "author": "gopinath",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd server && node index.js\" \"cd client && npm run dev\" ",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "concurrently": "^9.1.2",
-    "nodemon": "^3.1.9"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": ""
 }

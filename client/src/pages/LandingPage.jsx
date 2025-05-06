@@ -6,6 +6,8 @@ import Datepicker from "react-tailwindcss-datepicker";
 import { useDispatch } from "react-redux";
 import {searchStart} from "../redux/slices/searchSlice";
 import { Link,useNavigate} from 'react-router-dom';
+import homepage from "../assets/images/homepage.jpg";
+import homepage_nightmode2 from "../assets/images/homepage_nightmode2.jpg";
 
 function LandingPage() {
 
@@ -30,8 +32,9 @@ const handleClick=()=>{
 }
   return (
     <div
-      id="landingpage"
-      className="bg-[url(./src/assets/images/homepage.jpg)] dark:bg-[url(./src/assets/images/homepage_nightmode2.jpg)] transition-bg ease-in duration-700 contrast-125 pt-20 min-w-screen min-h-screen px-10 md:px-40 bg-cover dark:bg-gray-900 "
+      id="landingpage"  style={{'--image-url': `url(${homepage})`,'--dark-image-url': `url(${homepage_nightmode2})`}} 
+      className='bg-[image:var(--image-url)] dark:bg-[image:var(--dark-image-url)] 
+      transition-bg ease-in duration-700 contrast-125 pt-20 min-w-screen min-h-screen px-10 md:px-40 bg-cover dark:bg-gray-900'
     >
      
 

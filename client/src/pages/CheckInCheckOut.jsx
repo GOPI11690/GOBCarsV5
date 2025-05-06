@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
+import loginimg from "../assets/images/loginimg.jpg";
 
 function CheckInCheckOut() {
  
     const [switchAuth, setSwitchAuth] = useState(true);
   return (
-    <div className="pt-20 md:px-40 md:min-h-screen flex items-center justify-center bg-[url(./src/assets/images/loginimg.jpg)] bg-cover bg-repeat-x ">
+    <div style={{'--image-url': `url(${loginimg})`}} className="pt-20 md:px-40 md:min-h-screen flex items-center justify-center bg-[image:var(--image-url)] bg-cover bg-repeat-x ">
       <div className="min-w-fit  sm:h-[70%] flex justify-center items-center flex-col glassbg shadow-xl ">
         {switchAuth?<div className="rightLayout flex flex-row ">
         <div className="flex flex-col w-1/2 gap-5 justify-center items-center p-10">

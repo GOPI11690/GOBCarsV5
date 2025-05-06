@@ -1,9 +1,5 @@
-//dotenv configuration
-import dotenv from 'dotenv';
-dotenv.config();
-
 import axios from "axios";
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3030";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 export const GetReviews = async (userid) => {
     try {
         let url = `${BASE_URL}/api/review/`;

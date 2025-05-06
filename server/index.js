@@ -12,6 +12,7 @@ const rentalRoutes=require('./routes/rentalRouter.js');
 require('dotenv').config();
 const PORT=process.env.PORT;
 const frontendURL=process.env.FRONTEND_URL; 
+console.log(`Frontend URL: ${frontendURL}`);
 
 // Curb Cores Error by adding a header here
 const corsOptions = {

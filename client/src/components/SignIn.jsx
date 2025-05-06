@@ -112,7 +112,7 @@ try{
               id="email"
               placeholder="e.g. abc@mail.com"
               type="email"
-              name="email"
+              name="email" tabIndex={1}
               value={email}              onChange={(e) => setEmail(e.target.value)}
               className=" py-3 px-2 placeholder-gray-500  rounded-md focus:border-blue-600 text-black p-1"
               required
@@ -125,7 +125,7 @@ try{
                 placeholder="password"
                 type={isPasswordVisible ? "text" : "password"}
                 name="password"
-                value={password}
+                value={password} tabIndex={2}
                 className="
                       py-3 px-2 w-full rounded-md focus:border-indigo-600 text-black"
                 required
@@ -179,7 +179,7 @@ try{
             </div>
            
 
-            <button
+            <button tabIndex={3}
               className="w-full bg-green-500 py-2 text-xl rounded-md hover:bg-green-700 text-white mb-10"
               onSubmit={(e) => handleSubmit(e)}
             >

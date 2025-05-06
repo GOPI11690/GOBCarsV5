@@ -55,7 +55,8 @@ const BookingPage = () => {
     }
   };
 
-  const handleCancel=()=>{
+  const handleCancel=(e)=>{
+    e.preventDefault();
     setRangeDate({});
     setLicenseNumber("");
     setExpiryDate("");
@@ -354,7 +355,7 @@ const handleOk=async ()=>{
         </ul> 
         <div className='py-5 flex flex-row gap-5'>
         <button className="w-full bg-red-500 py-1 text-xl rounded-md hover:bg-red-700 text-white mb-10"
-              type="button" onClick={() => handleCancel}>Cancel</button> 
+              type="button" onClick={(e) => handleCancel(e)}>Cancel</button> 
         <button onClick={(e)=>handleSubmit(e)} className="w-full bg-green-500 py-1 text-xl rounded-md hover:bg-green-700 text-white mb-10"
               type="button">Proceed To Payment</button>
               

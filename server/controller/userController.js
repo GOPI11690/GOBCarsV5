@@ -72,7 +72,7 @@ const loginUser=asyncHandler(async(req, res) => {
         };
     
         const token=await generateToken(user._id);
-        res.cookie("token",token,{httpOnly:true,maxAge:24*60*60*1000});
+        res.cookie("token",token,{httpOnly:true,maxAge:24*60*60*1000,secure:true,sameSite:'none'});
         user.lastLogin = Date.now();
 
         await user.save();

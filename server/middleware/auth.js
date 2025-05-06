@@ -6,7 +6,7 @@ const UserModel=require("../model/userModel.js");
 const protect=asyncHandler(async(req,res,next)=>{
     //check if token is present in cookies
     let {token}=req.cookies;
-    if (!token) {
+    if (token!==null) {
         return res.status(401).json({
             message: "Not authorized, no token found!"
         })

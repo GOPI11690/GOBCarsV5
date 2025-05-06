@@ -2,4 +2,6 @@ node_modules
 client/node_modules
 server/node_modules
 .env
-package-lock.json
+package-lock.jsondist
+dist-ssr
+*.local

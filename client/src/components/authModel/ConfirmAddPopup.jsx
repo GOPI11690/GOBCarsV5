@@ -36,7 +36,7 @@ export const ConfirmAddPopup = ({ onConfirm, onCancel }) => {
     setTimeout(() => {
       setIsLoading(false);
       onConfirm(carDetail);
-    }, 1000);
+    }, 2000);
   };
 
   return (

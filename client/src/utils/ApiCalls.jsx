@@ -1,8 +1,12 @@
-import axios from "axios";
+//dotenv configuration
+import dotenv from 'dotenv';
+dotenv.config();
 
+import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3030";
 export const GetReviews = async (userid) => {
     try {
-        let url = "http://localhost:3030/api/review/";
+        let url = `${BASE_URL}/api/review/`;
         if(userid=="admin"){
           url = url+"all";
         }
@@ -23,7 +27,7 @@ export const GetReviews = async (userid) => {
       }
   };
   export const AddReview=async(review,rating,reviewername,userid) => {
-    const response=await axios.post('http://localhost:3030/api/review/add',
+    const response=await axios.post(`${BASE_URL}/api/review/add`,
       {
         review,
         rating,
@@ -38,7 +42,7 @@ export const GetReviews = async (userid) => {
     
   }
   export const AddUser=async(username,contact,email,password,roles,userstatus,isVerified) => {
-    const response=await axios.post('http://localhost:3030/api/review/add',
+    const response=await axios.post(`${BASE_URL}/api/review/add`,
       {
         username,
         contact,
@@ -56,7 +60,7 @@ export const GetReviews = async (userid) => {
     
   }
   export const DeleteReview=async(reviewid) => {
-    const response=await axios.delete('http://localhost:3030/api/review/delete/'+reviewid,
+    const response=await axios.delete(`${BASE_URL}/api/review/delete/`+reviewid,
       
       {
         withCredentials: true
@@ -66,7 +70,7 @@ export const GetReviews = async (userid) => {
   }
   export const GetAllUsers = async () => {
     try {
-        let url = "http://localhost:3030/api/user/all";
+        let url = `${BASE_URL}/api/user/all`;
         
         const response = await axios.get(
           url,
@@ -82,9 +86,9 @@ export const GetReviews = async (userid) => {
   }
   export const GetUser = async (userid) => {
     try {
-      let url = "http://localhost:3030/api/user/checkauth";
+      let url = `${BASE_URL}/api/user/checkauth`;
       if(userid){
-        url= "http://localhost:3030/api/user/"+userid;
+        url= `${BASE_URL}/api/user/`+userid;
       }
         
      
@@ -102,7 +106,7 @@ export const GetReviews = async (userid) => {
   };
   export const UserLogout = async () => {
     const response = await axios.post(
-      "http://localhost:3030/api/user/logout",
+      `${BASE_URL}/api/user/logout`,
       {},
       {
         withCredentials: true,
@@ -113,7 +117,7 @@ export const GetReviews = async (userid) => {
   };
   export const GetCar = async (carid) => {
     try {
-        let url = "http://localhost:3030/api/car/"+carid;
+        let url = `${BASE_URL}/api/car/`+carid;
      
         const response = await axios.get(
           url,
@@ -129,7 +133,7 @@ export const GetReviews = async (userid) => {
   };
   export const GetAllCars = async () => {
     try {
-        let url = "http://localhost:3030/api/car/all";
+        let url = `${BASE_URL}/api/car/all`;
      
         const response = await axios.get(
           url,
@@ -145,7 +149,7 @@ export const GetReviews = async (userid) => {
   };
   export const GetDealerCars = async (userid) => {
     try {
-      const url = "http://localhost:3030/api/car/dealer/"+userid;
+      const url = `${BASE_URL}/api/car/dealer/`+userid;
       const response = await axios.get(
         url,
         {
@@ -160,8 +164,7 @@ export const GetReviews = async (userid) => {
   };
   export const DeleteCar=async(carid) => {
     try{
-      const response=await axios.delete('http://localhost:3030/api/car/delete/'+carid,
-      
+      const response=await axios.delete(`${BASE_URL}/api/car/delete/`+carid,      
         {
           withCredentials: true
         } 
@@ -173,7 +176,7 @@ export const GetReviews = async (userid) => {
     
   }
   export const AddCar=async(name,brand,type,fuel,capacity,gear,rateperday,thumbnail,status,userid) => {
-    const response=await axios.post('http://localhost:3030/api/car/add',
+    const response=await axios.post(`${BASE_URL}/api/car/add`,
       {
         name,
         brand,
@@ -194,7 +197,7 @@ export const GetReviews = async (userid) => {
   }
   export const UserLogin = async (email, password) => {
      
-        const response = await axios.post(`http://localhost:3030/api/user/login`,
+        const response = await axios.post(`${BASE_URL}/api/user/login`,
           {
             email,
             password
@@ -208,7 +211,7 @@ export const GetReviews = async (userid) => {
       
     }
     export const AddLicense=async(licenseNumber,expiryDate,userid) => {
-      const response=await axios.post('http://localhost:3030/api/user/license',
+      const response=await axios.post(`${BASE_URL}/api/user/license`,
         {
           licenseNumber,
           expiryDate,
@@ -223,7 +226,7 @@ export const GetReviews = async (userid) => {
     }
     export const AddRental=async(startdate,returndate,amount,rentalstatus,carid,userid) => {
       
-      const response=await axios.post('http://localhost:3030/api/rental/add',
+      const response=await axios.post(`${BASE_URL}/api/rental/add`,
         {
           startdate,
           returndate,
@@ -239,7 +242,7 @@ export const GetReviews = async (userid) => {
         return response;
     }
     export const AddPayment=async(amount,rentalstatus,rentalid)=>{
-      const response=await axios.put('http://localhost:3030/api/rental/payment/'+rentalid,
+      const response=await axios.put(`${BASE_URL}/api/rental/payment/`+rentalid,
         {
           amount,
           rentalstatus
@@ -251,7 +254,7 @@ export const GetReviews = async (userid) => {
         return response;
     }
     export const GetRentals=async(rentalid)=>{
-      const response=await axios.get('http://localhost:3030/api/rental/user/'+rentalid,
+      const response=await axios.get(`${BASE_URL}/api/rental/user/`+rentalid,
 
         {
           withCredentials: true
@@ -260,7 +263,7 @@ export const GetReviews = async (userid) => {
         return response;
     }
     export const GetRental=async(rentalid)=>{
-      const response=await axios.get('http://localhost:3030/api/rental/'+rentalid,
+      const response=await axios.get(`${BASE_URL}/api/rental/`+rentalid,
      
         {
           withCredentials: true
@@ -270,7 +273,7 @@ export const GetReviews = async (userid) => {
     }
     export const GetBookings=async(userid)=>{
       try {
-        let url = "http://localhost:3030/api/rental/user/";
+        let url = `${BASE_URL}/api/rental/user/`;
         if(userid=="admin"){
           url = url+"all";
         }
@@ -293,7 +296,7 @@ export const GetReviews = async (userid) => {
     export const CheckUserAuthenticated = async () => {
  
           await new Promise(resolve => setTimeout(resolve, 2000))
-          const response = await axios.get('http://localhost:3030/api/user/checkauth', {
+          const response = await axios.get(`${BASE_URL}/api/user/checkauth`, {
             withCredentials: true
           })
     

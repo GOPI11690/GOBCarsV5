@@ -3,7 +3,6 @@ const app= express();
 const cookieParser = require('cookie-parser');
 const cors=require("cors");
 const {connectDB}=require("./config/db.js");
-import path from 'path';
 const userRoutes=require('./routes/userRouter.js');
 const carRoutes=require('./routes/carRouter.js');
 const reviewRoutes=require('./routes/reviewRouter.js');
@@ -31,11 +30,7 @@ app.use("/api/user",userRoutes);
 app.use("/api/car",carRoutes);
 app.use("/api/review",reviewRoutes);
 app.use("/api/rental",rentalRoutes);
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '../client/dist')));  
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
+
 app.listen(PORT,()=>{
     console.log(`Welcome to GOB Cars - Server is Running at ${PORT}`);
 });

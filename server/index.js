@@ -12,22 +12,9 @@ const rentalRoutes=require('./routes/rentalRouter.js');
 require('dotenv').config();
 const PORT=process.env.PORT;
 
-// app.use(cors({origin:"http://localhost:5173",methods:"GET,HEAD,PUT,PATCH,POST,DELETE"}));
-// // Curb Cores Error by adding a header here
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-//     res.setHeader(
-//       "Access-Control-Allow-Headers",
-//       "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-//     );
-//     res.setHeader(
-//       "Access-Control-Allow-Methods",
-//       "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-//     );
-//     next();
-//   });
+// Curb Cores Error by adding a header here
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173','https://gobcars.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE','HEAD','PATCH','OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization','Origin', 'X-Requested-With','Content', 'Accept'],
   credentials: true // Enable if using cookies or HTTP authentication

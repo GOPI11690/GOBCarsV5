@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CarModelDropDown from "../components/CarModelDropDown";
 import CarSeaterDropDown from "../components/CarSeaterDropDown";
 import Datepicker from "react-tailwindcss-datepicker";
-// import DatePicker from "react-datepicker";
 import { useDispatch } from "react-redux";
 import {searchStart} from "../redux/slices/searchSlice";
 import { Link,useNavigate} from 'react-router-dom';

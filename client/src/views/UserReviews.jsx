@@ -38,11 +38,11 @@ function UserReviews() {
       return <Navigate to="/" />;
     }
     else{
-      getUserReviews();
+      GetUserReviews();
     }
     
   }, [isUserAuthenticated]);
-  async function getUserReviews() {
+  async function GetUserReviews() {
     const response = await GetReviews(user._id);
     setReviews(response.data.reviews.reviews);
     setIsLoading(false);

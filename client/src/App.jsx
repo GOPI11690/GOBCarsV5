@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch} from "react-redux"
 import { loginSuccessful, logout } from "./redux/slices/userSlice"
 import { useLayoutEffect } from "react";
 import { ThemeProvider } from "./theme/ThemeContext";
@@ -56,14 +56,14 @@ function App() {
   const isUserAuthenticate=async ()=>{
     try{
     const response=await CheckUserAuthenticated();
-    
     dispatch(loginSuccessful(response.data.user))
     setLoading(false);
-  } catch (err) {
-    dispatch(logout());
-    setLoading(false);
-    console.log("New User without token : ",err);
     
+  } 
+  catch (err) {
+    
+    console.error("New User without token : ",err);
+    dispatch(logout());
   }
 
   }

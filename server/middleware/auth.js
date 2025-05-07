@@ -24,7 +24,7 @@ const protect=asyncHandler(async(req,res,next)=>{
         //get user data
             req.user=await UserModel.findById(decodeToken.id).select('-password');
             next();
-            
+             
         } catch (error) {
             console.error(error);
     

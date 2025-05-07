@@ -5,7 +5,7 @@ const protect=require("../middleware/auth.js");
 
 router.get("/all",protect,routeController.getAllUsers);
 
-router.get("/checkauth",protect,routeController.getUser);
+router.get("/checkauth",routeController.getProfile);
 
 router.get("/:id",protect,routeController.getUser);
 
@@ -15,7 +15,7 @@ router.delete("/delete/:id",protect,routeController.deleteUser);
 
 router.put("/update/:id",protect,routeController.updateUser)
 
-router.get('/profile',protect,routeController.getProfile);
+// router.get('/profile',protect,routeController.getProfile);
 
 router.post("/login", routeController.loginUser);
 

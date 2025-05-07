@@ -9,14 +9,12 @@ export const GetReviews = async (userid) => {
         else{
         url = url + userid;
         }
-     
         const response = await axios.get(
           url,
           {
             withCredentials: true,
           }
         );
-  
         return response;
       } catch (err) {
         throw new Error("Error fetching reviews: " + err.message);
@@ -300,13 +298,17 @@ export const FaqData=async (url) => {
       }
     }
     export const CheckUserAuthenticated = async () => {
- 
-          await new Promise(resolve => setTimeout(resolve, 2000))
-          const response = await axios.get(`${BASE_URL}/api/user/checkauth`, {
-            withCredentials: true
-          })
-    
-          return response;
+      try{
+        const response = await axios.get(`${BASE_URL}/api/user/checkauth`, 
+          {
+          withCredentials: true
+        })
+        return response;
+      }
+      catch (err) {
+        throw new Error("Error in checkuser authenticated: " + err);
+      }
+          
        
       }
     

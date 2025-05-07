@@ -171,16 +171,30 @@ const generateToken=(id)=>{
     const token=jwt.sign({id},process.env.SECRET_KEY,{expiresIn:'1d'});
     return token;
 }
-const getProfile=(req,res)=>{
+const getProfile=async (req,res)=>{
+    try{
+        console.log(req.cookies) 
     const {token}=req.cookies
     if(token){
-        jwt.verify(token,process.env.SECRET_KEY,{},(err,user)=>{
-            if(err) throw err;
-            res.json(user);
-        })
-    }else{
-        res.json(null);
+        let decodeToken = jwt.verify(token, process.env.SECRET_KEY);
+        const user=await UserModel.findById(decodeToken.id).select('-password');
+            
+            res.status(200).json({
+                message: "User ok!",
+                user:{... user._doc}
+            });
+     
     }
+    
+    }
+    catch(e){
+        console.log("Error in getProfile: ",e);
+        res.status(400).json({
+            message: e.message
+        });
+    }
+    
+    
 }
 const addLicense=async (req,res)=>{
     try{

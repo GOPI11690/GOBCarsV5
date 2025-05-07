@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import axios from "axios";
 import "./UserReviews.css";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 import { ConfirmActionsPopup } from "../components/authModel/ConfirmActionsPopup";
-import {GetReviews} from "../utils/ApiCalls";
+import {DeleteReview, GetReviews} from "../utils/ApiCalls";
 import Spinner from "../components/loading/Spinner";
 
 function UserReviews() {
@@ -55,7 +53,7 @@ function UserReviews() {
       <br />
       <span>
         (id: <strong>{reviewToDelete._id}</strong>)
-      </span>
+      </span> 
     </p>
   );
   const handleDelete = async (review) => {
@@ -64,19 +62,17 @@ function UserReviews() {
   };
   const handleConfirmDelete = async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const url =
-        "http://localhost:3030/api/review/delete/" + reviewToDelete._id;
-      await axios.delete(url, { withCredentials: true });
+      await new Promise((resolve) => setTimeout(resolve, 1000));     
+      await DeleteReview(reviewToDelete._id);
       setReviews((prevReviews) =>
         prevReviews.filter((review) => review._id !== reviewToDelete._id)
       );
       setIsPopupDeleteVisible(false);
       setMessageSuccess("Review deleted successfully");
-    setTimeout(() => setMessageSuccess(""), 3000);  
+    setTimeout(() => setMessageSuccess(""), 2000);  
     } catch (error) {
-      setMessageSuccess("Review fetch error");
-    setTimeout(() => setMessageSuccess(""), 3000);  
+      setMessageFailed("Review delete error");
+    setTimeout(() => setMessageSuccess(""), 2000);  
       throw new Error("Error in userreviews",error);
     }
   };

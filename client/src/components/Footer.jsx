@@ -43,7 +43,7 @@ function Footer() {
         <div className="hidden navText md:flex md:flex-wrap">
           <ul><p className='font-extrabold text-2xl underline txt-color'>Quick Links</p>
           <Link to={"aboutus"} ><li className='hover:scale-110 text-xl hover:text-sky-600'>About Us</li></Link>
-          <Link to={"browsecars"} ><li className='hover:scale-110 text-xl  hover:text-sky-600'>Cars</li></Link>
+          <Link to={"cars"} ><li className='hover:scale-110 text-xl  hover:text-sky-600'>Cars</li></Link>
           <Link to={"howitworks"} ><li className='hover:scale-110 text-xl  hover:text-sky-600'>How it works</li></Link>
           <Link to={"retrospects"} ><li className='hover:scale-110 text-xl hover:text-sky-600'>Retrospects</li></Link>
           </ul>

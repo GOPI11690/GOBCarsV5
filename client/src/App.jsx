@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react"
-import { useDispatch} from "react-redux"
+import { useDispatch, useSelector} from "react-redux"
 import { loginSuccessful, logout } from "./redux/slices/userSlice"
 import { useLayoutEffect } from "react";
 import { ThemeProvider } from "./theme/ThemeContext";
@@ -50,6 +50,7 @@ const Wrapper = ({ children }) => {
 };
 
 function App() {
+  const isCheck = useSelector((state) => state.user.isCheckingUserAuthenticated);
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch()
 
@@ -70,8 +71,9 @@ function App() {
   
 
   useEffect(() => {
+    if(isCheck==false){
     isUserAuthenticate();
-    
+    }
   }, [])
   
   return (

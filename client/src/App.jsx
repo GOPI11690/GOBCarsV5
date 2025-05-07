@@ -63,7 +63,7 @@ function App() {
   } 
   catch (err) {
     setLoading(false);
-    console.error("New User without token : ",err);
+    console.error("User token : ",err);
     dispatch(logout());
   }
 
@@ -71,7 +71,7 @@ function App() {
   
 
   useEffect(() => {
-    if(isCheck==false){
+    if(isCheck==true){
     isUserAuthenticate();
     }
     setLoading(false);

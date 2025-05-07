@@ -100,6 +100,12 @@ try{
     
       
   }
+  const handleKeypress = e => {
+    //it triggers by pressing the enter key
+  if (e.keyCode === 13) {
+    handleSubmit(e);
+  }
+};
   return (
     
       <div className=" pt-10 items-center">
@@ -130,7 +136,7 @@ try{
                 value={password} tabIndex={2}
                 className="
                       py-3 px-2 w-full rounded-md focus:border-indigo-600 text-black"
-                required
+                required onKeyDown={handleKeypress}
                 onChange={(e) => setPassword(e.target.value)}
               /> 
               <button

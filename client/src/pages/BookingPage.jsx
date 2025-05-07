@@ -10,6 +10,7 @@ import { ConfirmActionsPopup } from "../components/authModel/ConfirmActionsPopup
 import moment from 'moment';
 import { NotifyCompletePayment } from '../components/authModel/NotifyCompletePayment';
 import ProgressBar from '../components/loading/ProgressBar';
+import payComplete from '../assets/images/paymentCompleteAnime.gif';
 moment().format();
 
 const BookingPage = () => {
@@ -126,7 +127,7 @@ const completeMessage =
     </span>
     <br />
     {/* <span className='scale-0 transition-scale ease-out duration-700'><img src='../src/assets/images/paymentProcess.gif'/></span> */}
-    <span className='scale-50 transition-scale ease-in duration-700'><img src='../src/assets/images/paymentCompleteAnime.gif'/></span>
+    <span className='scale-50 transition-scale ease-in duration-700'><img src={payComplete}/></span>
   </div>
 ;
 const handlePay = async () => {

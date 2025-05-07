@@ -7,7 +7,7 @@ router.get("/all",protect,routeController.getAllUsers);
 
 router.get("/checkauth",routeController.getProfile);
 
-router.get("/:id",protect,routeController.getUser);
+router.get("/:id",routeController.getUser);
 
 router.post("/add",routeController.addUser);
 

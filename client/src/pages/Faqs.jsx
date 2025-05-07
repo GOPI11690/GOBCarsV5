@@ -28,7 +28,7 @@ function Accordion(props) {
 function Faqs(data) {
     const [accordions, setAccordion] = useState([]); 
 const getFaqs=async()=>{
-       const url="../src/data/faqdata.json";
+       const url="../src/data/faqdata";
        try{
         const response = await FaqData(url);
         if(response)

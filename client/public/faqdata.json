@@ -1,22 +1,70 @@
-{"faqs":[
+{
+  "faqs":
+  {
+    "faqs":[
     {
         "key": 1,
-        "title": "What is GeeksforGeeks?",
-        "data": "GeeksforGeeks is a one stop solution for all computer science students.",
+        "title": "What is GOB Cars?",
+        "data": "GOB Cars gives you a choise of using our amazing cars with your choise of privacy and freedom, so that you can start enjoying your road journey as you wish without waiting to reach your destination.",
         "isOpen": false
       },
       {
         "key": 2,
-        "title": "What GeeksforGeeks offer us?",
-        "data": "GeeksforGeeks offers Free Tutorials, Millions of Articles, Live, Online and Classroom Courses,Frequent Coding Competitions, Webinars by Industry Experts, Internship opportunities and Job Opportunities.",
+        "title": "What do I need to book a car on GOB Cars?",
+        "data": "Driving Licence and Aadhaar Card to be submitted while creating your account and upload your documents there. Please note, this is a one-time process for new users on the platform.",
         "isOpen": false
       },
       {
         "key": 3,
-        "title": "Which is the best portal to study Computer Science?",
-        "data": "GeeksforGeeks is the best Computer Science portal for geeks. It contains well written, well thought and well explained computer science and programming articles.",
+        "title": "How long can I book a car?",
+        "data": "You may book the car for a minimum of 12 Hours or max 1 month. For longer durations please reach out to our team to get the best  deal.",
         "isOpen": false
-      }
+      },
+      {
+        "key": 4,
+        "title": "What happens if the car is dropped back late?",
+        "data": "You will be charged based on the following : Extra Hrs. Rs.150/hr. (If informed early a revised tariff will be shared)",
+        "isOpen": false
+      },
+      {
+        "key": 5,
+        "title": "Why do I have to pay a deposit?",
+        "data": "The deposit amount of Rs.2,000 is used as a safeguard against any fuel difference, toll charges and traffic challans if found during the booking hour. The balance deposit amount (if any) will be refunded within the next 24-48 hrs. of booking end time.",
+        "isOpen": false
+      }],
+"hostfaqs":[
+  {
+      "key": 1,
+      "title": "What is GOB Cars?",
+      "data": "GOB Cars gives you a choise of using our amazing cars with your choise of privacy and freedom, so that you can start enjoying your road journey as you wish without waiting to reach your destination.",
+      "isOpen": false
+    },
+    {
+      "key": 2,
+      "title": "Which cars can I list? What are the variants?",
+      "data": "You can list any car model ranging from hatchbacks to SUVs to luxury cars as well. However, your car should not be older than 8 years. Note that the newer the car model, the higher earnings you can expect.",
+      "isOpen": false
+    },
+    {
+      "key": 3,
+      "title": "Can I stop listing my car anytime?",
+      "data": "Yes, you can pause or stop listings anytime through the GOB Cars Website, but it's recommended to avoid affecting upcoming or ongoing bookings.",
+      "isOpen": false
+    },
+    {
+      "key": 4,
+      "title": "What can I do if my car is damaged by a Guest?",
+      "data": "Please report the damage to us within 24 hours of the booking end time through the post-booking checklist on the app. Make sure the car is not used for personal use after booking completion.",
+      "isOpen": false
+    },
+    {
+      "key": 5,
+      "title": "Does GOB Cars cover all maintenance and damage charges?",
+      "data": "All damages that occur during a booking and are raised through the checklist will be covered by GOB Cars. However, regular servicing & maintenance of the car is the responsibility of the Host.",
+      "isOpen": false
+    }
 ]
 }
+}
+
   

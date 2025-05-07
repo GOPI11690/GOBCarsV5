@@ -25,7 +25,7 @@ const userSlice = createSlice({
     },
     logout(state) {
       (state.user = null),
-        (state.isCheckingUserAuthenticated = false),
+        (state.isCheckingUserAuthenticated = true),
         (state.isUserAuthenticated = false),
         (state.loading = false),
         (state.error = null)

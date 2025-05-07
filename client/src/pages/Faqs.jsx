@@ -60,7 +60,7 @@ const toggleAccordion = (accordionkey) => {
 }; 
 
 return ( 
-    <div className="px-10  py-16 gap-5 flex flex-col items-center justify-center bg-white dark:bg-gray-900 "> 
+    <div className="px-10  py-16 gap-5 flex flex-col items-center justify-center bg-slate-100 dark:bg-gray-900 "> 
     <p className='text-3xl font-bold sm:text-4xl text-sky-950 text-center dark:text-sky-500'>Frequently asked questions</p>
         <div className="pt-10 flex flex-col items-center justify-center w-1/2"> 
             {accordions.map((accordion) => ( 

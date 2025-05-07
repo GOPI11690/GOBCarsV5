@@ -72,8 +72,7 @@ const loginUser=asyncHandler(async(req, res) => {
         };
     
         const token=await generateToken(user._id);
-        res.cookie("token",token,{httpOnly:true,maxAge:24*60*60*1000,sameSite: "strict"
-        });
+        res.cookie("token",token,{httpOnly:true,secure:true,maxAge:24*60*60*1000,sameSite: "none"});
         user.lastLogin = Date.now();
 
         await user.save();
@@ -169,7 +168,7 @@ const deleteUser=asyncHandler(async(req,res) => {
 });
 //token generation with id
 const generateToken=(id)=>{
-    const token=jwt.sign({id},process.env.SECRET_KEY,{expiresIn:'30d'});
+    const token=jwt.sign({id},process.env.SECRET_KEY,{expiresIn:'1d'});
     return token;
 }
 const getProfile=(req,res)=>{

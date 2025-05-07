@@ -176,7 +176,7 @@ const handleSelect=async (car)=>{
                 <img
                   src={car.thumbnail}
                   alt="product"
-                  className="h-[250px] w-[350px] md:h-[200px] object-contain"
+                  className="min-h-[250px] min-w-[350px] md:h-[200px] object-contain"
                 /> </div>
                 <div className="h-full  dark:text-white ">
                   <div className="px-5 sm:px-10 py-5 text-xl text-wrap lg:text-2xl font-semibold h-1/2">

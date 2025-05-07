@@ -62,7 +62,7 @@ function App() {
     
   } 
   catch (err) {
-    
+    setLoading(false);
     console.error("New User without token : ",err);
     dispatch(logout());
   }
@@ -74,6 +74,7 @@ function App() {
     if(isCheck==false){
     isUserAuthenticate();
     }
+    setLoading(false);
   }, [])
   
   return (

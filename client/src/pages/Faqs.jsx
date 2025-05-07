@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { FaqData } from "../utils/ApiCalls";
+
 function Accordion(props) { 
     return ( 
         <div className="border rounded-md mb-1 w-full"> 
@@ -27,19 +27,15 @@ function Accordion(props) {
 function Faqs(data) {
     const [accordions, setAccordion] = useState([]); 
 const getFaqs=async()=>{
-       const url="../../public/faqdata.json";
+    //    const url="../src/data/faqdata.json";
+    const url="../../public/faqdata.json";
        try{
-        const response = await FaqData(url);
-        if(response)
-            {
-                if(data=="aboutus"){
-                    setAccordion(response.faqs.faqs)
-                }else
-                {
-                    setAccordion(response.faqs.hostfaqs)
-                }
-            }
-             ;
+         await fetch(url)
+         .then((res) => {res.json()
+             .then((resData) => {if(data=="aboutus"){setAccordion(resData.faqs.faqs)}else{setAccordion(resData.faqs.hostfaqs)}})
+             
+             
+         });
        }
        catch(e){throw new Error(e)}
                

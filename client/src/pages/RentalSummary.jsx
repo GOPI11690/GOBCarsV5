@@ -132,7 +132,7 @@ const RentalSummary = () => {
                 <div className='font-medium'>Taxes :</div><div className='font-medium'>{search.calculatedata.sgstValue*2}.00</div>
             </div>
             <div className='flex flex-row gap-4 justify-between items-center'>
-                <div className='font-medium'>Security Deposit</div><div className='font-medium'>{search.calculatedata.advance}</div>
+                <div className='font-medium'>Security Deposit</div><div className='font-medium'>{search.calculatedata.advance}.00</div>
             </div>
             <span className='border-b-2 border-dashed border-gray-800 w-full'></span>
             <div className='flex flex-row gap-4 justify-between items-center'>

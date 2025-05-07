@@ -2,7 +2,6 @@ import React,{useState} from 'react'
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
 import { FaPlusCircle } from "react-icons/fa";
-import axios from "axios";
 import { ConfirmAddPopup } from "../../../components/authModel/ConfirmAddPopup";
 import { AddCar } from '../../../utils/ApiCalls';
 

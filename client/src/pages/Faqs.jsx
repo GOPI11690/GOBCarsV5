@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 
+
 function Accordion(props) { 
     return ( 
         <div className="border rounded-md mb-1 w-full"> 
@@ -24,11 +25,13 @@ function Accordion(props) {
     ); 
 }; 
 
+
+
 function Faqs(data) {
     const [accordions, setAccordion] = useState([]); 
 const getFaqs=async()=>{
     //    const url="../src/data/faqdata.json";
-    const url="../../public/faqdata.json";
+    const url="/faqdata.json";
        try{
          await fetch(url)
          .then((res) => {res.json()

@@ -151,8 +151,6 @@ const RentalSummary = () => {
                         <span className="text-xs md:text-[18px] font-bold px-2  text-blue-900">Go to Homepage</span></button> 
         
         
-                        <button onClick={handlePrint} className='w-1/2 p-3 border-2 border-dashed rounded-[50px] border-gray-500 text-xl font-medium hover:bg-gray-600 hover:text-white'>Print this page</button>
-        
         <button onClick={()=>navigate("/userpage")} className="w-1/2 flex text-center hover:bg-sky-400 cursor-pointer justify-center items-center text-black  rounded-[50px] border-2 border-sky-900 border-solid hover:border-sky-600 px-3"
               type="button">
                         <span className="text-xs md:text-[18px] font-bold px-2 text-blue-900">Go to Dashboard</span><FaCircleArrowRight  size={25} color="blue" className="hidden md:flex"/></button>

@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import { FaqData } from "../utils/ApiCalls";
 
 function Accordion(props) { 
     return ( 
@@ -29,12 +30,17 @@ function Faqs(data) {
 const getFaqs=async()=>{
        const url="../src/data/faqdata.json";
        try{
-         await fetch(url)
-         .then((res) => {res.json()
-             .then((resData) => {if(data=="aboutus"){setAccordion(resData.faqs.faqs)}else{setAccordion(resData.faqs.hostfaqs)}})
-             
-             
-         });
+        const response = await FaqData(url);
+        if(response)
+            {
+                if(data=="aboutus"){
+                    setAccordion(response.faqs.faqs)
+                }else
+                {
+                    setAccordion(response.faqs.hostfaqs)
+                }
+            }
+             ;
        }
        catch(e){throw new Error(e)}
                

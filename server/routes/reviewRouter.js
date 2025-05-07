@@ -9,7 +9,7 @@ router.post("/add",protect,routeController.addReview);
 
 router.delete("/delete/:id",protect,routeController.deleteReview);
 
-router.get("/:id",protect,routeController.getReviews);
+router.get("/:id",routeController.getReviews);
 
 
 

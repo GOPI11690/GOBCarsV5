@@ -111,6 +111,16 @@ export const GetReviews = async (userid) => {
   
     return response;
   };
+export const FaqData=async (url) => {
+  const response = await axios.get(
+    url,
+    {
+      withCredentials: true,
+    }
+  );
+  return response;
+}
+
   export const GetCar = async (carid) => {
     try {
         let url = `${BASE_URL}/api/car/`+carid;

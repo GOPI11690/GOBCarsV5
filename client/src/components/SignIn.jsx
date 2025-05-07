@@ -27,7 +27,9 @@ function SignIn() {
   };
   function togglePasswordVisibility(e) {
     e.preventDefault();
-    setIsPasswordVisible((prevState) => !prevState);}
+    setIsPasswordVisible((prevState) => !prevState);
+  }
+
   const handleSubmit = async (e) => {
     // prevent the form from refreshing the whole page
     e.preventDefault();
@@ -43,7 +45,7 @@ function SignIn() {
 // set configurations
 dispatch(loginStart());
 try{
-  await new Promise(resolve => setTimeout(resolve, 1000))
+  await new Promise(resolve => setTimeout(resolve, 500))
   const response =await UserLogin(email,password)
 
     if(response.data.user){

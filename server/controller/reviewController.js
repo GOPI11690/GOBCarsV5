@@ -22,7 +22,7 @@ const getAllReviews = asyncHandler(async (req, res) => {
   }
 });
 const getReviews = asyncHandler(async (req, res) => {
-  try {console.log(req.user);
+  try {;
     const UserId=req.user._id;
           if (!UserId) {
       return res.status(400).json({

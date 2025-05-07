@@ -4,14 +4,16 @@ const asyncHandler=require("express-async-handler");
 const UserModel=require("../model/userModel.js");
 
 const protect=asyncHandler(async(req,res,next)=>{
+    try {
+        //check if token is present in headers
     //check if token is present in cookies
-    let {token}=req.cookies;
-    if (token!==null) {
+    let token=req.cookies.token;
+    if (!token) {
         return res.status(401).json({
             message: "Not authorized, no token found!"
         })
     };
-        try{
+       
             let decodeToken = jwt.verify(token, process.env.SECRET_KEY);
 
         if(!decodeToken) {

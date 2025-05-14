@@ -38,6 +38,7 @@ import RentalSummary from "./pages/RentalSummary";
 import AdminBookings from "./components/adminModel/views/AdminBookings";
 import { CheckUserAuthenticated } from "./utils/ApiCalls";
 import Spinner from "./components/loading/Spinner";
+import RefundPolicy from "./pages/RefundPolicy";
 const Wrapper = ({ children }) => {
   const location = useLocation();
 
@@ -97,6 +98,7 @@ function App() {
 
               <Route path="termofuse" element={<Termofuse />} />
               <Route path="privacypolicy" element={<Privacypolicy />} />
+              <Route path="refundpolicy" element={<RefundPolicy />} />
               <Route path="/" element={<Homepage />} />
               <Route path="home" element={<Homepage />} />
               <Route path="aboutus" element={<Aboutus />} />

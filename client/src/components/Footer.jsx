@@ -51,6 +51,7 @@ function Footer() {
         <div className='hidden max-h-fit navText md:flex md:flex-wrap  align-top'>
         <ul><p className='font-extrabold text-2xl underline txt-color'>Terms & Policy</p>
             <Link to={"termofuse"} ><li className='hover:scale-110 text-xl hover:text-sky-600'>Terms Of Use</li></Link>
+            <Link to={"refundpolicy"} ><li className='hover:scale-110 text-xl  hover:text-sky-600'>Refund Policy</li></Link>
             <Link to={"privacypolicy"} ><li className='hover:scale-110 text-xl  hover:text-sky-600'>Privacy Policy</li></Link>
           </ul>
         </div>

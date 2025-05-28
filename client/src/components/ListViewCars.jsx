@@ -168,8 +168,8 @@ const handleSelect=async (car)=>{
       </div>
       <div className="rightLayout h-fit  rounded-2xl flex flex-col md:row-span-full md:col-span-5 p-5 dark:shadow-slate-300">
         <div className="listView">
-          {loading}
-          {filteredCarList.slice(0, carToShow).map((car, index) => (
+          {loading?<Spinner/>:
+          filteredCarList.slice(0, carToShow).map((car, index) => (
             
             <div
               key={index} onClick={()=>handleSelect(car)}

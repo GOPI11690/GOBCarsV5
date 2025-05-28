@@ -25,9 +25,7 @@ function Accordion(props) {
     ); 
 }; 
 
-
-
-function Faqs(data) {
+function Faqs({data}) {
     const [accordions, setAccordion] = useState([]); 
 const getFaqs=async()=>{
     //    const url="../src/data/faqdata.json";
@@ -35,7 +33,7 @@ const getFaqs=async()=>{
        try{
          await fetch(url)
          .then((res) => {res.json()
-             .then((resData) => {if(data=="aboutus"){setAccordion(resData.faqs.faqs)}else{setAccordion(resData.faqs.hostfaqs)}})
+             .then((resData) => {if(data==="aboutus"){setAccordion(resData.faqs.faqs)}else{setAccordion(resData.faqs.hostfaqs)}})
              
              
          });

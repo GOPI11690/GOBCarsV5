@@ -6,10 +6,6 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 
 const seater = [
     {
-        id: 0,
-        name: 'Select',
-        },
-    {
         id: 1,
         name: '4-Seater',
         },
@@ -24,7 +20,7 @@ const seater = [
 ]
 
 export default function CarSeaterDropDown({selectedSeater,setSelectedSeater}) {
-  const [selected, setSelected] = useState(seater[0])
+  const [selected, setSelected] = useState({name: "Select Seater"})
 
   return (<div className='flex flex-col'>
 <Listbox value={selected} onChange={setSelected}>
@@ -44,7 +40,9 @@ export default function CarSeaterDropDown({selectedSeater,setSelectedSeater}) {
           transition
           className="absolute z-10 mt-1 max-h-56 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-leave:transition data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm"
         >
+           
           {seater.map((seater) => (
+           
             <ListboxOption
               key={seater.id}
               value={seater} onClick={()=>setSelectedSeater(seater.name)}

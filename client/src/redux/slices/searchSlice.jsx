@@ -11,8 +11,11 @@ const searchSlice=createSlice({
       searchStart(state,action) {
         state.search = action.payload
       },
+      removeSearch(state){
+        (state.search = null)
+      }
   
   }})
-  export const {searchStart}=searchSlice.actions
+  export const {searchStart,removeSearch}=searchSlice.actions
 
   export default searchSlice.reducer;

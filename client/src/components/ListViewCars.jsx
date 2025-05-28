@@ -4,7 +4,7 @@ import { GiGearStickPattern } from "react-icons/gi";
 import { MdEventSeat } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {searchStart} from "../redux/slices/searchSlice";
+import {searchStart,removeSearch} from "../redux/slices/searchSlice";
 import { useNavigate} from 'react-router-dom';
 import { GetAllCars } from "../utils/ApiCalls";
 import Spinner from "./loading/Spinner";
@@ -53,7 +53,9 @@ const ListViewCars = ({ fillCategory }) => {
 
   const resetCategory = () => {
     setCategories(category);
+    setFilteredCarList(carList);
     setSelectedCategories([]);
+    dispatch(removeSearch())  
   };
 
   useEffect(() => {
@@ -71,7 +73,8 @@ const ListViewCars = ({ fillCategory }) => {
   }, [selectedCategories, carList]);
 
   const getCategories = () => {
-      setCategories(fillCategory);    
+      setCategories(fillCategory.filter(e=>e!==""));   
+      setSelectedCategories(fillCategory.filter(e=>e!==""));
     }
  
   const getCars = async () => {

@@ -8,7 +8,7 @@ function BrowseCars() {
   let category=["SUV","Sedan","Hatchback","Van","4-Seater","7-Seater","10-Seater"];
   const search = useSelector((state) => state.search.search);
   if(search!==null) {
-    if(search.model!==null||search.seater!==null)
+    if(search.model!==""||search.seater!=="")
     category=[search.model,search.seater];
   }
   

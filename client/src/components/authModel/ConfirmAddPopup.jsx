@@ -18,10 +18,10 @@ export const ConfirmAddPopup = ({ onConfirm, onCancel }) => {
     status: "Available",
     userid: user._id,
   });
-  const type = ["Select","SUV", "Sedan", "Hatchback", "Van"];
-  const fuel = ["Select","Petrol", "Diesel", "CNG", "Electric"];
-  const gear = ["Select","Auto", "Manual"];
-  const capacity = ["Select","4-Seater", "7-Seater", "10-Seater"];
+  const type = ["SUV", "Sedan", "Hatchback", "Van"];
+  const fuel = ["Petrol", "Diesel", "CNG", "Electric"];
+  const gear = ["Auto", "Manual"];
+  const capacity = ["4-Seater", "7-Seater", "10-Seater"];
   const [messageSuccess, setMessageSuccess] = useState("");
   const [messageFailed, setMessageFailed] = useState("");
   const [isLoading, setIsLoading] = useState(false);

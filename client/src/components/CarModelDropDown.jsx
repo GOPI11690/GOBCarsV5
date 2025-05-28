@@ -5,10 +5,6 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 
 const model = [
     {
-        id: 0,
-        name: 'Select',
-        },
-    {
         id: 1,
         name: 'Sedan',
         },
@@ -23,7 +19,7 @@ const model = [
 ]
 
 export default function CarModelDropDown({selectedModel,setSelectedModel}) {
-  const [selected, setSelected] = useState(model[0])
+  const [selected, setSelected] = useState({name: "Select Model"})
 
   return (<div className='flex flex-col'>
 <Listbox value={selected} onChange={setSelected}>

@@ -67,29 +67,35 @@ const BookingPage = () => {
   }
   const handleSubmit=(e)=>{
     e.preventDefault();
-    if(!rangeDate&&!licenseNumber&&!expiryDate){
+    if(!rangeDate ){
       setMessageFailed("Please Select Start and Return Date");
       return;
     }
-    else if(!licenseNumber&&!expiryDate){
-      setMessageFailed("Please Enter License Number and Expiry Date!");
+    if(!licenseNumber)
+    {
+      setMessageFailed("Please Enter License Number");
       return;
     }
-    else if(termOne!==true&&termTwo!==true){
-      setMessageFailed("Please tick Terms and Conditions below");
+    if(!expiryDate){
+      setMessageFailed("Please Enter Expiry Date!");
       return;
     }
-    else{
+    if(termOne!==true){
+      setMessageFailed("Please tick both Terms and Conditions");
+      return;
+    }
+    if(termTwo!==true){
+       setMessageFailed("Please tick both Terms and Conditions");
+      return;
+    }
       setIsLoading(true);
       setTimeout(() => {
         setPay(true);
       setTermOne(false);
       setTermTwo(false);
       setIsLoading(false);
-      }, 1500);
+      }, 1000);
       
-      
-    }
   }
 
   const calculate=()=>{

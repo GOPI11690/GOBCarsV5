@@ -46,8 +46,8 @@ const handleClick=()=>{
       <div className="intBtns sm:py-20 p-16 justify-start flex flex-col sm:flex-row">
        
         <div className="p-1"></div>
-        <div className='rounded-[50px] flex justify-center items-center text-center homeBtn min-w-fit '>
-        <Link to="cars" ><span>BOOK NOW</span></Link></div>
+        <Link to="cars" ><div className='rounded-[50px] flex justify-center items-center text-center homeBtn min-w-fit '>
+        <span>BOOK NOW</span></div></Link>
       </div>
       
         <div className="searchLayout glassbg m-16 p-5 md:mx-20 md:grid-cols-1 bg-slate-100 grid grid-cols-1 md:max-w-fit md:flex md:flex-row gap-5 items-center border-2 border-solid border-white rounded-lg dark:bg-sky-950  ">
